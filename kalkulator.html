@@ -261,55 +261,93 @@
     </div>
 
     <script>
-        let currentBalance = 100; // Saldo awal default
+    document.addEventListener('DOMContentLoaded', () => {
+        // Mengelompokkan elemen DOM untuk akses mudah
+        const elements = {
+            initialBalance: document.getElementById('initialBalance'),
+            amount: document.getElementById('amount'),
+            percentage: document.getElementById('percentage'),
+            currentBalance: document.getElementById('currentBalance'),
+            lossPercentage: document.getElementById('lossPercentage'),
+            copyrightYear: document.getElementById('copyright-year')
+        };
 
-        function hitung(type) {
-            let saldoAwal = parseFloat(document.getElementById('initialBalance').value) || 0;
-            let amount = parseFloat(document.getElementById('amount').value) || 0;
+        // State untuk menyimpan data
+        let state = {
+            currentBalance: 0,
+            saldoAwal: 0
+        };
 
+        // Fungsi untuk memperbarui UI
+        function updateUI() {
+            elements.currentBalance.value = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'USD' }).format(state.currentBalance);
+            const kerugianDapatDitanggung = ((state.currentBalance - state.saldoAwal) / state.currentBalance * 100).toFixed(2);
+            elements.lossPercentage.textContent = Math.max(0, kerugianDapatDitanggung);
+        }
+
+        // Fungsi utama untuk perhitungan
+        function calculate(type) {
+            const saldoAwal = parseFloat(elements.initialBalance.value) || 0;
+            const amount = parseFloat(elements.amount.value) || 0;
+
+            // Validasi input
             if (saldoAwal < 0 || amount < 0) {
                 alert('Nilai tidak boleh negatif!');
                 return;
             }
 
+            state.saldoAwal = saldoAwal;
+
             if (type === 'profit') {
-                currentBalance += amount;
-                let persentase = ((amount / saldoAwal) * 100).toFixed(2);
-                document.getElementById('percentage').value = persentase + '%';
+                state.currentBalance += amount;
+                const persentase = ((amount / saldoAwal) * 100).toFixed(2);
+                elements.percentage.value = persentase + '%';
             } else if (type === 'loss') {
-                if (amount > currentBalance) {
+                if (amount > state.currentBalance) {
                     alert('Jumlah kerugian melebihi saldo saat ini!');
                     return;
                 }
-                currentBalance -= amount;
-                let persentaseKerugian = ((amount / currentBalance) * 100).toFixed(2);
-                document.getElementById('percentage').value = '-' + persentaseKerugian + '%';
+                state.currentBalance -= amount;
+                const persentaseKerugian = ((amount / state.currentBalance) * 100).toFixed(2);
+                elements.percentage.value = '-' + persentaseKerugian + '%';
             }
 
-            document.getElementById('currentBalance').value = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'USD' }).format(currentBalance);
-            let kerugianDapatDitanggung = ((currentBalance - saldoAwal) / currentBalance * 100).toFixed(2);
-            document.getElementById('lossPercentage').textContent = Math.max(0, kerugianDapatDitanggung); // Pastikan tidak negatif
+            updateUI();
         }
 
+        // Fungsi untuk mereset semua nilai
         function reset() {
-            currentBalance = 0;
-            document.getElementById('initialBalance').value = 0;
-            document.getElementById('amount').value = 0;
-            document.getElementById('percentage').value = '';
-            document.getElementById('currentBalance').value = '';
-            document.getElementById('lossPercentage').textContent = '';
+            state.currentBalance = 0;
+            state.saldoAwal = 0;
+            elements.initialBalance.value = 0;
+            elements.amount.value = 0;
+            elements.percentage.value = '';
+            elements.currentBalance.value = '';
+            elements.lossPercentage.textContent = '';
         }
 
-        document.getElementById('initialBalance').addEventListener('input', () => {
-            currentBalance = parseFloat(document.getElementById('initialBalance').value) || 0;
-            hitung('profit');
+        // Event Listeners
+        elements.initialBalance.addEventListener('input', () => {
+            state.saldoAwal = parseFloat(elements.initialBalance.value) || 0;
+            state.currentBalance = state.saldoAwal;
+            updateUI();
         });
-        document.getElementById('amount').addEventListener('input', () => hitung('profit'));
-        
-        window.addEventListener('load', () => {
-            document.getElementById('copyright-year').textContent = new Date().getFullYear();
-            reset();
+
+        elements.amount.addEventListener('input', () => {
+            // Tidak langsung menghitung, menunggu tombol ditekan
         });
-    </script>
+
+        // Asumsikan ada tombol dengan class won-button, loss-button, dan reset-button
+        document.querySelector('.won-button').addEventListener('click', () => calculate('profit'));
+        document.querySelector('.loss-button').addEventListener('click', () => calculate('loss'));
+        document.querySelector('.reset-button').addEventListener('click', reset);
+
+        // Set tahun copyright
+        elements.copyrightYear.textContent = new Date().getFullYear();
+
+        // Inisialisasi dengan reset
+        reset();
+    });
+</script>
 </body>
 </html>
