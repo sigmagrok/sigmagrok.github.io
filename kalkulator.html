@@ -255,6 +255,8 @@
         </div>
         <div class="result">
             Anda sekarang bisa kehilangan <span class="highlight" id="lossPercentage"></span>%, sebelum kembali ke saldo awal Anda.
+            <br>
+            <p>&copy; <span id="copyright-year"></span> Sigma Grok. Semua hak cipta dilindungi.</p>
         </div>
     </div>
 
@@ -304,7 +306,11 @@
             hitung('profit');
         });
         document.getElementById('amount').addEventListener('input', () => hitung('profit'));
-        window.addEventListener('load', reset);
+        
+        window.addEventListener('load', () => {
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
+            reset();
+        });
     </script>
 </body>
 </html>
