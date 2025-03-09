@@ -292,13 +292,12 @@
         }
 
         function reset() {
-            currentBalance = 100;
-            document.getElementById('initialBalance').value = 100;
-            document.getElementById('amount').value = 111;
+            currentBalance = 0;
+            document.getElementById('initialBalance').value = 0;
+            document.getElementById('amount').value = 0;
             document.getElementById('percentage').value = '';
-            document.getElementById('currentBalance').value = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'USD' }).format(100);
+            document.getElementById('currentBalance').value = '';
             document.getElementById('lossPercentage').textContent = '';
-            hitung('profit'); // Hitung ulang dengan nilai default
         }
 
         document.getElementById('initialBalance').addEventListener('input', () => {
