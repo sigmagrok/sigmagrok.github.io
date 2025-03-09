@@ -5,55 +5,135 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kalkulator Saldo</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f0f2f5, #e0e4e8);
+            color: #2c3e50;
         }
+
         .container {
             background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.1);
+            width: 450px;
+            max-width: 90%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.1);
+        }
+
         .row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            align-items: center;
+            margin-bottom: 15px;
+            animation: fadeIn 0.5s ease-in-out;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         .label {
-            font-weight: bold;
-            color: #2c3e50;
+            font-weight: 600;
+            color: #34495e;
+            font-size: 16px;
         }
+
         .input-field {
             flex: 1;
-            padding: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-left: 10px;
+            padding: 8px 12px;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            margin-left: 15px;
+            font-size: 14px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: #fafafa;
         }
+
+        .input-field:focus {
+            border-color: #2ecc71;
+            box-shadow: 0 0 5px rgba(46, 204, 113, 0.5);
+            outline: none;
+        }
+
+        .input-field[readonly] {
+            background-color: #f1f3f5;
+            color: #7f8c8d;
+            cursor: not-allowed;
+        }
+
         .won-button {
             background-color: #2ecc71;
             color: white;
             border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
+            padding: 8px 15px;
+            border-radius: 8px;
             cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-transform: uppercase;
         }
+
         .won-button:hover {
             background-color: #27ae60;
+            transform: scale(1.05);
         }
+
+        .won-button:active {
+            transform: scale(0.95);
+        }
+
         .result {
             color: #7f8c8d;
             font-size: 14px;
+            text-align: center;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f9fbfd;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
         }
+
         .highlight {
             color: #e74c3c;
+            font-weight: 600;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                width: 100%;
+            }
+            .row {
+                flex-direction: column;
+                text-align: center;
+            }
+            .input-field {
+                margin: 10px 0;
+                width: 100%;
+            }
+            .won-button {
+                width: 100%;
+            }
+            .label {
+                margin-bottom: 5px;
+            }
         }
     </style>
 </head>
@@ -84,24 +164,19 @@
 
     <script>
         function hitung() {
-            // Ambil nilai dari input
             let saldoAwal = parseFloat(document.getElementById('initialBalance').value) || 0;
             let jumlahMenang = parseFloat(document.getElementById('wonAmount').value) || 0;
 
-            // Hitung persentase kemenangan
             let persentaseMenang = ((jumlahMenang / saldoAwal) * 100).toFixed(2);
             document.getElementById('wonPercentage').value = persentaseMenang + '%';
 
-            // Hitung saldo saat ini
             let saldoSekarang = saldoAwal + jumlahMenang;
             document.getElementById('currentBalance').value = saldoSekarang.toFixed(2);
 
-            // Hitung persentase kerugian yang dapat ditanggung
             let kerugianDapatDitanggung = ((jumlahMenang / saldoSekarang) * 100).toFixed(2);
             document.getElementById('lossPercentage').textContent = kerugianDapatDitanggung;
         }
 
-        // Jalankan perhitungan saat input berubah
         document.getElementById('initialBalance').addEventListener('input', hitung);
         document.getElementById('wonAmount').addEventListener('input', hitung);
     </script>
