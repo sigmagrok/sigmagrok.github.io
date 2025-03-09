@@ -22,53 +22,85 @@
         }
 
         .container {
-            background-color: white;
+            background: linear-gradient(145deg, #ffffff, #f9fbfd);
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 6px 6px rgba(0, 0, 0, 0.1);
-            width: 600px; /* Lebar kontainer diperbesar */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1), 0 6px 10px rgba(0, 0, 0, 0.05);
+            width: 600px;
             max-width: 90%;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(46, 204, 113, 0.1) 0%, transparent 70%);
+            animation: pulse 10s infinite;
+            z-index: 0;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
         }
 
         .container:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2), 0 8px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .container > * {
+            position: relative;
+            z-index: 1;
         }
 
         .row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px; /* Memperbesar jarak antar elemen */
+            margin-bottom: 25px;
             animation: fadeIn 0.5s ease-in-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .label {
             font-weight: 600;
             color: #34495e;
-            font-size: 18px; /* Ukuran font label lebih besar */
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+
+        .label::before {
+            content: '💰';
+            margin-right: 8px;
+            font-size: 16px;
         }
 
         .input-field {
             flex: 1;
-            padding: 12px 18px; /* Padding diperbesar */
+            padding: 12px 18px;
             border: 2px solid #ecf0f1;
             border-radius: 8px;
-            margin-left: 20px; /* Jarak antar elemen diperbesar */
-            font-size: 16px; /* Ukuran font input lebih besar */
+            margin-left: 20px;
+            font-size: 16px;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
             background-color: #fafafa;
         }
 
         .input-field:focus {
             border-color: #2ecc71;
-            box-shadow: 0 0 5px rgba(46, 204, 113, 0.5);
+            box-shadow: 0 0 8px rgba(46, 204, 113, 0.5);
             outline: none;
         }
 
@@ -78,17 +110,22 @@
             cursor: not-allowed;
         }
 
+        .input-field:invalid {
+            border-color: #e74c3c;
+            box-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
+        }
+
         .won-button {
             background-color: #2ecc71;
             color: white;
             border: none;
-            padding: 12px 20px; /* Padding tombol lebih besar */
+            padding: 12px 20px;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 500;
             transition: background-color 0.3s ease, transform 0.2s ease;
             text-transform: uppercase;
-            font-size: 16px; /* Ukuran font tombol lebih besar */
+            font-size: 16px;
         }
 
         .won-button:hover {
@@ -100,15 +137,38 @@
             transform: scale(0.95);
         }
 
+        .reset-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        .reset-button:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+
+        .reset-button:active {
+            transform: scale(0.95);
+        }
+
         .result {
             color: #7f8c8d;
-            font-size: 16px; /* Ukuran font hasil lebih besar */
+            font-size: 16px;
             text-align: center;
             margin-top: 20px;
             padding: 12px;
             background-color: #f9fbfd;
             border-radius: 5px;
             border-left: 4px solid #3498db;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         }
 
         .highlight {
@@ -119,29 +179,29 @@
         @media (max-width: 768px) {
             .container {
                 padding: 30px;
-                width: 85%; /* Lebar kontainer sedikit lebih kecil untuk tampilan layar lebih kecil */
+                width: 85%;
             }
             .row {
                 flex-direction: column;
                 text-align: center;
             }
             .input-field {
-                margin: 12px 0; /* Margin lebih besar antara input field */
+                margin: 12px 0;
                 width: 100%;
             }
-            .won-button {
+            .won-button, .reset-button {
                 width: 100%;
-                padding: 12px; /* Padding tombol disesuaikan */
+                margin-top: 10px;
             }
             .label {
-                margin-bottom: 10px; /* Margin lebih besar antar label dan input */
+                margin-bottom: 10px;
             }
         }
 
         @media (max-width: 480px) {
             .container {
                 padding: 20px;
-                width: 100%;
+                width: 90%;
             }
             .row {
                 flex-direction: column;
@@ -151,11 +211,14 @@
                 margin: 10px 0;
                 width: 100%;
             }
-            .won-button {
+            .won-button, .reset-button {
                 width: 100%;
             }
             .label {
                 margin-bottom: 5px;
+            }
+            .label::before {
+                display: none;
             }
         }
     </style>
@@ -164,21 +227,22 @@
     <div class="container">
         <div class="row">
             <span class="label">Saldo sebelumnya ($)</span>
-            <input type="number" id="initialBalance" class="input-field" value="100" min="0">
+            <input type="number" id="initialBalance" class="input-field" value="100" min="0" required aria-label="Saldo sebelumnya">
         </div>
         <div class="row">
             <span class="label">dan Anda</span>
             <button class="won-button" onclick="hitung()">Profit</button>
+            <button class="reset-button" onclick="reset()">Reset</button>
         </div>
         <div class="row">
             <span class="label">$</span>
-            <input type="number" id="wonAmount" class="input-field" value="111" min="0">
+            <input type="number" id="wonAmount" class="input-field" value="111" min="0" required aria-label="Jumlah profit">
             <span class="label">yang berarti (%)</span>
-            <input type="text" id="wonPercentage" class="input-field" readonly>
+            <input type="text" id="wonPercentage" class="input-field" readonly aria-label="Persentase profit">
         </div>
         <div class="row">
             <span class="label">Saldo sekarang ($)</span>
-            <input type="text" id="currentBalance" class="input-field" readonly>
+            <input type="text" id="currentBalance" class="input-field" readonly aria-label="Saldo sekarang">
         </div>
         <div class="result">
             Anda sekarang bisa kehilangan <span class="highlight" id="lossPercentage"></span>%, sebelum kembali ke saldo awal Anda.
@@ -190,18 +254,33 @@
             let saldoAwal = parseFloat(document.getElementById('initialBalance').value) || 0;
             let jumlahMenang = parseFloat(document.getElementById('wonAmount').value) || 0;
 
+            if (saldoAwal < 0 || jumlahMenang < 0) {
+                alert('Nilai tidak boleh negatif!');
+                return;
+            }
+
             let persentaseMenang = ((jumlahMenang / saldoAwal) * 100).toFixed(2);
             document.getElementById('wonPercentage').value = persentaseMenang + '%';
 
             let saldoSekarang = saldoAwal + jumlahMenang;
-            document.getElementById('currentBalance').value = saldoSekarang.toFixed(2);
+            document.getElementById('currentBalance').value = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'USD' }).format(saldoSekarang);
 
             let kerugianDapatDitanggung = ((jumlahMenang / saldoSekarang) * 100).toFixed(2);
             document.getElementById('lossPercentage').textContent = kerugianDapatDitanggung;
         }
 
+        function reset() {
+            document.getElementById('initialBalance').value = 100;
+            document.getElementById('wonAmount').value = 111;
+            document.getElementById('wonPercentage').value = '';
+            document.getElementById('currentBalance').value = '';
+            document.getElementById('lossPercentage').textContent = '';
+            hitung();
+        }
+
         document.getElementById('initialBalance').addEventListener('input', hitung);
         document.getElementById('wonAmount').addEventListener('input', hitung);
+        window.addEventListener('load', hitung);
     </script>
 </body>
 </html>
