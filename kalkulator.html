@@ -265,7 +265,7 @@
         <div class="result">
             Anda sekarang bisa kehilangan <span class="highlight" id="lossPercentage"></span>%, sebelum kembali ke saldo awal Anda.
             <br>
-            <p>CopyRight &copy; <span id="copyright-year"></span>Sigma Grok.</p>
+            <p>Copyright © <span id="copyright-year"></span>Sigma Grok.</p>
         </div>
     </div>
 
@@ -290,8 +290,13 @@
             // Fungsi untuk memperbarui UI
             function updateUI() {
                 elements.currentBalance.value = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'USD' }).format(state.currentBalance);
-                const kerugianDapatDitanggung = ((state.currentBalance - state.saldoAwal) / state.currentBalance * 100).toFixed(2);
-                elements.lossPercentage.textContent = Math.max(0, kerugianDapatDitanggung);
+                let kerugianDapatDitanggung;
+                if (state.currentBalance > state.saldoAwal && state.currentBalance != 0) {
+                    kerugianDapatDitanggung = ((state.currentBalance - state.saldoAwal) / state.currentBalance * 100).toFixed(2);
+                } else {
+                    kerugianDapatDitanggung = '0.00';
+                }
+                elements.lossPercentage.textContent = kerugianDapatDitanggung;
             }
 
             // Fungsi utama untuk perhitungan
@@ -307,18 +312,36 @@
 
                 state.saldoAwal = saldoAwal;
 
+                let oldCurrentBalance = state.currentBalance;
+
                 if (type === 'profit') {
-                    state.currentBalance += amount;
-                    const persentase = ((amount / saldoAwal) * 100).toFixed(2);
-                    elements.percentage.value = persentase + '%';
+                    if (amount > 0) {
+                        state.currentBalance += amount;
+                        if (oldCurrentBalance === 0) {
+                            elements.percentage.value = 'N/A';
+                        } else {
+                            const persentase = ((amount / oldCurrentBalance) * 100).toFixed(2);
+                            elements.percentage.value = persentase + '%';
+                        }
+                    } else {
+                        elements.percentage.value = '0%';
+                    }
                 } else if (type === 'loss') {
                     if (amount > state.currentBalance) {
                         alert('Jumlah kerugian melebihi saldo saat ini!');
                         return;
                     }
                     state.currentBalance -= amount;
-                    const persentaseKerugian = ((amount / state.currentBalance) * 100).toFixed(2);
-                    elements.percentage.value = '-' + persentaseKerugian + '%';
+                    if (oldCurrentBalance === 0) {
+                        if (amount === 0) {
+                            elements.percentage.value = '0%';
+                        } else {
+                            elements.percentage.value = 'N/A';
+                        }
+                    } else {
+                        const persentaseKerugian = ((amount / oldCurrentBalance) * 100).toFixed(2);
+                        elements.percentage.value = '-' + persentaseKerugian + '%';
+                    }
                 }
 
                 updateUI();
