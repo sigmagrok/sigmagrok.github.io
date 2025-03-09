@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Saldo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .input-field {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+        .won-button {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .won-button:hover {
+            background-color: #27ae60;
+        }
+        .result {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        .highlight {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <span class="label">Saldo Anda sebelumnya (Rp)</span>
+            <input type="number" id="initialBalance" class="input-field" value="100" min="0">
+        </div>
+        <div class="row">
+            <span class="label">dan Anda</span>
+            <button class="won-button" onclick="hitung()">menang</button>
+        </div>
+        <div class="row">
+            <span class="label">Rp</span>
+            <input type="number" id="wonAmount" class="input-field" value="111" min="0">
+            <span class="label">yang berarti (%)</span>
+            <input type="text" id="wonPercentage" class="input-field" readonly>
+        </div>
+        <div class="row">
+            <span class="label">Saldo Anda sekarang (Rp)</span>
+            <input type="text" id="currentBalance" class="input-field" readonly>
+        </div>
+        <div class="result">
+            Anda sekarang bisa kehilangan <span class="highlight" id="lossPercentage"></span>%, sebelum kembali ke saldo awal Anda.
+        </div>
+    </div>
+
+    <script>
+        function hitung() {
+            // Ambil nilai dari input
+            let saldoAwal = parseFloat(document.getElementById('initialBalance').value) || 0;
+            let jumlahMenang = parseFloat(document.getElementById('wonAmount').value) || 0;
+
+            // Hitung persentase kemenangan
+            let persentaseMenang = ((jumlahMenang / saldoAwal) * 100).toFixed(2);
+            document.getElementById('wonPercentage').value = persentaseMenang + '%';
+
+            // Hitung saldo saat ini
+            let saldoSekarang = saldoAwal + jumlahMenang;
+            document.getElementById('currentBalance').value = saldoSekarang.toFixed(2);
+
+            // Hitung persentase kerugian yang dapat ditanggung
+            let kerugianDapatDitanggung = ((jumlahMenang / saldoSekarang) * 100).toFixed(2);
+            document.getElementById('lossPercentage').textContent = kerugianDapatDitanggung;
+        }
+
+        // Jalankan perhitungan saat input berubah
+        document.getElementById('initialBalance').addEventListener('input', hitung);
+        document.getElementById('wonAmount').addEventListener('input', hitung);
+    </script>
+</body>
+</html>
