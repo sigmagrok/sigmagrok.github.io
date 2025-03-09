@@ -115,7 +115,7 @@
             box-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
         }
 
-        .won-button {
+        .won-button, .loss-button {
             background-color: #2ecc71;
             color: white;
             border: none;
@@ -126,14 +126,22 @@
             transition: background-color 0.3s ease, transform 0.2s ease;
             text-transform: uppercase;
             font-size: 16px;
+            margin-left: 10px;
         }
 
-        .won-button:hover {
-            background-color: #27ae60;
+        .loss-button {
+            background-color: #e74c3c;
+        }
+
+        .loss-button:hover {
+            background-color: #c0392b;
+        }
+
+        .won-button:hover, .loss-button:hover {
             transform: scale(1.05);
         }
 
-        .won-button:active {
+        .won-button:active, .loss-button:active {
             transform: scale(0.95);
         }
 
@@ -189,7 +197,7 @@
                 margin: 12px 0;
                 width: 100%;
             }
-            .won-button, .reset-button {
+            .won-button, .loss-button, .reset-button {
                 width: 100%;
                 margin-top: 10px;
             }
@@ -211,7 +219,7 @@
                 margin: 10px 0;
                 width: 100%;
             }
-            .won-button, .reset-button {
+            .won-button, .loss-button, .reset-button {
                 width: 100%;
             }
             .label {
@@ -231,14 +239,15 @@
         </div>
         <div class="row">
             <span class="label">dan Anda</span>
-            <button class="won-button" onclick="hitung()">Profit</button>
+            <button class="won-button" onclick="hitung('profit')">Profit</button>
+            <button class="loss-button" onclick="hitung('loss')">Loss</button>
             <button class="reset-button" onclick="reset()">Reset</button>
         </div>
         <div class="row">
             <span class="label">$</span>
-            <input type="number" id="wonAmount" class="input-field" value="111" min="0" required aria-label="Jumlah profit">
-            <span class="label">yang berarti (%)</span>
-            <input type="text" id="wonPercentage" class="input-field" readonly aria-label="Persentase profit">
+            <input type="number" id="amount" class="input-field" value="111" min="0" required aria-label="Jumlah profit atau loss">
+            <span class="label">(%)</span>
+            <input type="text" id="percentage" class="input-field" readonly aria-label="Persentase profit atau loss">
         </div>
         <div class="row">
             <span class="label">Saldo sekarang ($)</span>
@@ -250,37 +259,52 @@
     </div>
 
     <script>
-        function hitung() {
-            let saldoAwal = parseFloat(document.getElementById('initialBalance').value) || 0;
-            let jumlahMenang = parseFloat(document.getElementById('wonAmount').value) || 0;
+        let currentBalance = 100; // Saldo awal default
 
-            if (saldoAwal < 0 || jumlahMenang < 0) {
+        function hitung(type) {
+            let saldoAwal = parseFloat(document.getElementById('initialBalance').value) || 0;
+            let amount = parseFloat(document.getElementById('amount').value) || 0;
+
+            if (saldoAwal < 0 || amount < 0) {
                 alert('Nilai tidak boleh negatif!');
                 return;
             }
 
-            let persentaseMenang = ((jumlahMenang / saldoAwal) * 100).toFixed(2);
-            document.getElementById('wonPercentage').value = persentaseMenang + '%';
+            if (type === 'profit') {
+                currentBalance += amount;
+                let persentase = ((amount / saldoAwal) * 100).toFixed(2);
+                document.getElementById('percentage').value = persentase + '%';
+            } else if (type === 'loss') {
+                if (amount > currentBalance) {
+                    alert('Jumlah kerugian melebihi saldo saat ini!');
+                    return;
+                }
+                currentBalance -= amount;
+                let persentaseKerugian = ((amount / currentBalance) * 100).toFixed(2);
+                document.getElementById('percentage').value = '-' + persentaseKerugian + '%';
+            }
 
-            let saldoSekarang = saldoAwal + jumlahMenang;
-            document.getElementById('currentBalance').value = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'USD' }).format(saldoSekarang);
-
-            let kerugianDapatDitanggung = ((jumlahMenang / saldoSekarang) * 100).toFixed(2);
-            document.getElementById('lossPercentage').textContent = kerugianDapatDitanggung;
+            document.getElementById('currentBalance').value = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'USD' }).format(currentBalance);
+            let kerugianDapatDitanggung = ((currentBalance - saldoAwal) / currentBalance * 100).toFixed(2);
+            document.getElementById('lossPercentage').textContent = Math.max(0, kerugianDapatDitanggung); // Pastikan tidak negatif
         }
 
         function reset() {
+            currentBalance = 100;
             document.getElementById('initialBalance').value = 100;
-            document.getElementById('wonAmount').value = 111;
-            document.getElementById('wonPercentage').value = '';
-            document.getElementById('currentBalance').value = '';
+            document.getElementById('amount').value = 111;
+            document.getElementById('percentage').value = '';
+            document.getElementById('currentBalance').value = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'USD' }).format(100);
             document.getElementById('lossPercentage').textContent = '';
-            hitung();
+            hitung('profit'); // Hitung ulang dengan nilai default
         }
 
-        document.getElementById('initialBalance').addEventListener('input', hitung);
-        document.getElementById('wonAmount').addEventListener('input', hitung);
-        window.addEventListener('load', hitung);
+        document.getElementById('initialBalance').addEventListener('input', () => {
+            currentBalance = parseFloat(document.getElementById('initialBalance').value) || 0;
+            hitung('profit');
+        });
+        document.getElementById('amount').addEventListener('input', () => hitung('profit'));
+        window.addEventListener('load', reset);
     </script>
 </body>
 </html>
