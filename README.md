@@ -15,5 +15,5 @@ Semakin lama Anda berdagang, semakin banyak pola berulang yang akan Anda lihat.
 
 | Hari & Tanggal       | Keterangan Peristiwa | Hasil Trading |
 |----------------------|----------------------|---------------|
-| Jumat, 14 Maret 2025 | Akan ada hari, sinyal sell menjadi sinyal buy, sinyal buy menjadi sinyal buy  | Ekuitas 60 jadi 9, lupa tidak membuka akun grok  |
+| Jumat, 14 Maret 2025 | Akan ada hari, sinyal sell menjadi sinyal buy, sinyal buy menjadi sinyal buy. Seperti kejadian tadi siang sampai malam ini.  | Ekuitas 60 jadi 9, lupa tidak membuka akun grok  |
 | Senin, 17 Maret 2025 | Data 3  | Data 4  |
