@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Trading</title>
+    <style>
+        body {
+           font-family: Roboto, sans-serif;
+           margin: 10px;
+           padding: 30px;
+           background-color: #ffffff;
+           border: 1px solid #ddd;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 5px;
+        }
+
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+            border-radius: 3px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        .fork-cell {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .fork-cell:hover {
+            background-color: #f9f9f9;
+        }
+
+        .fork-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: none;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Happy Trading</h1>
+        <div class="legend">
+            <div class="legend-item"><div class="legend-color" style="background: #d3d3e8;"></div> Puncak</div>
+            <div class="legend-item"><div class="legend-color" style="background: #ffb6c1;"></div> Lembah</div>
+            <div class="legend-item"><div class="legend-color" style="background: #808080;"></div> Metode</div>
+            <div class="legend-item"><div class="legend-color" style="background: #98fb98;"></div> Artificial</div>
+            <div class="legend-item"><div class="legend-color" style="background: #9acd32;"></div> Intellegence</div>
+            <div class="legend-item"><div class="legend-color" style="background: #a9a9a9;"></div> Nilai</div>
+            <div class="legend-item"><div class="legend-color" style="background: #0000ff;"></div> Tinggi</div>
+            <div class="legend-item"><div class="legend-color" style="background: #dda0dd;"></div> Rendah</div>
+            <div class="legend-item"><div class="legend-color" style="background: #228b22;"></div> Atas</div>
+            <div class="legend-item"><div class="legend-color" style="background: #5e071e;"></div> Bawah</div>
+            
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="fork-cell" data-name="5 Elemen Sukses Versi #Maintrab & Grok 3: Rasa hingga Keberuntungan">
+                        <div class="fork-dot" style="background: #d3d3e8;"></div>
+                        5 Elemen
+                    </td>
+                    <td>Lima elemen "Jalan Menuju Sukses" 1. Rasa 2. Momentum 3. Tindakan 4. Tujuan 5. Keberuntungan (Faktor Eksternal)</td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td class="fork-cell" data-name="Rasa = Hasil dari Respon Pemikiran atau Tindakan yang Dialami oleh Tubuh">
+                        <div class="fork-dot" style="background: #d3d3e8;"></div>
+                        Rasa
+                    </td>
+                    <td>Rasa bisa diartikan sebagai respons emosional, fisik, atau kognitif yang muncul dari interaksi pikiran dan tindakan. Ini mencerminkan bagaimana kita memproses pengalaman melalui persepsi dan sensasi. Rasa juga bisa dipengaruhi oleh konteks eksternal (lingkungan, budaya) dan internal (nilai pribadi, pengalaman masa lalu). Jadi, rasa tidak hanya respons murni, tetapi juga interpretasi yang kompleks.</td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td class="fork-cell" data-name="Artificial = Buatan">
+                        <div class="fork-dot" style="background: #98fb98;"></div>
+                        Artificial
+                    </td>
+                    <td>artificial adalah sesuatu yang tidak alami tetapi diciptakan oleh manusia dengan tujuan tertentu.</td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td class="fork-cell" data-name="Intellegence = kecerdasan ">
+                        <div class="fork-dot" style="background: #98fb98;"></div>
+                        Intellegence
+                    </td>
+                    <td>Intelligence adalah kemampuan untuk berpikir, belajar, dan bertindak secara cerdas, baik secara alami (manusia/hewan) maupun buatan (mesin)</td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td class="fork-cell" data-name="Nilai sering dikaitkan dengan apa yang dianggap 'berharga' dalam hidup, seperti kebahagiaan atau kebebasan">
+                        <div class="fork-dot" style="background: #00ced1;"></div>
+                        Nilai
+                    </td>
+                    <td>Nilai adalah sesuatu yang dianggap berharga atau memiliki makna, baik dalam bentuk prinsip hidup maupun ukuran tertentu, tergantung konteksnya. </td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td class="fork-cell" data-name="Sinonim: panjang (dalam dimensi vertikal), menjulang">
+                        <div class="fork-dot" style="background: #0000ff;"></div>
+                        Tinggi
+                    </td>
+                    <td>Mengacu pada ukuran atau posisi yang jauh dari dasar ke atas, biasanya dalam hal ketinggian.</td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td class="fork-cell" data-name="Rendah bisa merujuk pada dimensi fisik (kedekatan ke dasar)">
+                        <div class="fork-dot" style="background: #9acd32;"></div>
+                        Rendah
+                    </td>
+                    <td>Mengacu pada ukuran atau posisi yang jauh dari atas ke dasar, biasanya dalam hal kedalaman.</td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td class="fork-cell" data-name="Menunjukkan lokasi atau posisi yang lebih tinggi dibandingkan sesuatu yang lain">
+                        <div class="fork-dot" style="background: #9acd32;"></div>
+                        Atas
+                    </td>
+                    <td>Preposisi: "Atas" sering digunakan sebagai kata depan untuk menunjukkan hubungan posisi atau sebab.</td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td class="fork-cell" data-name="Menunjukkan lokasi atau posisi yang lebih rendah dibandingkan sesuatu yang lain">
+                        <div class="fork-dot" style="background: #228b22;"></div>
+                        Bawah
+                    </td>
+                    <td>Sinonim: di bagian bawah, di dasar.</td>
+                    <td>Active</td>
+                </tr>
+                <tr>
+                    <td class="fork-cell" data-name="Waktu adalah dimensi atau rentang di mana peristiwa terjadi, biasanya diukur dalam satuan seperti detik, menit, jam, hari, dll">
+                        <div class="fork-dot" style="background: #ffb6c1;"></div>
+                        Waktu
+                    </td>
+                    <td>Waktu adalah konsep yang mencakup durasi, momen tertentu, atau periode, dan sangat penting dalam kehidupan sehari-hari maupun konteks yang lebih luas.</td>
+                    <td>Active</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="tooltip" id="tooltip"></div>
+    </div>
+
+    <script>
+        const forkCells = document.querySelectorAll('.fork-cell');
+        const tooltip = document.getElementById('tooltip');
+
+        forkCells.forEach(cell => {
+            cell.addEventListener('mouseover', (e) => {
+                tooltip.textContent = cell.getAttribute('data-name');
+                tooltip.style.display = 'block';
+                tooltip.style.left = e.pageX + 10 + 'px';
+                tooltip.style.top = e.pageY - 20 + 'px';
+            });
+
+            cell.addEventListener('mouseout', () => {
+                tooltip.style.display = 'none';
+            });
+
+            cell.addEventListener('mousemove', (e) => {
+                tooltip.style.left = e.pageX + 10 + 'px';
+                tooltip.style.top = e.pageY - 20 + 'px';
+            });
+        });
+    </script>
+</body>
+</html>
