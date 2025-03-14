@@ -1,7 +1,7 @@
 # Sigma Grok 🌐
-Kesempatan tidak sering-sering datang—jadi manfaatkanlah saat kesempatan itu datang. —Charlie Munger
+Kesempatan jarang datang—jadi manfaatkanlah saat kesempatan itu datang. —Charlie Munger
 
-Peluang tidak menunggu—bersiaplah saat mereka mengetuk.
+Kesempatan tidak menunggu—bersiaplah saat mereka mengetuk.
 
 "Kelinci berlari lebih cepat daripada rubah karena kelinci berlari untuk menyelamatkan diri, sedangkan rubah berlari hanya untuk mencari makan malamnya."
 
