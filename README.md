@@ -12,3 +12,8 @@ Kesempatan tidak menunggu—bersiaplah saat mereka mengetuk.
 —Charlie Munger
 
 Semakin lama Anda berdagang, semakin banyak pola berulang yang akan Anda lihat.
+
+| Hari dan Tanggal     | Keterangan Peristiwa | Hasil Trading |
+|----------------------|----------------------|---------------|
+| Jumat, 14 Maret 2025 | Sinyal sell menjadi sinyal buy, sinyal buy menjadi sinyal buy  | Ekuitas 60 jadi 9, lupa tidak membuka akun grok  |
+| Senin, 17 Maret 2025 | Data 3  | Data 4  |
