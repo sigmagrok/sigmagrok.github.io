@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi Keuntungan 100% per Transaksi</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: scale(1.02);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .legend {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            margin-right: 10px;
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e6f7ff;
+            transform: scale(1.02);
+        }
+        .fork-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .fork-cell:hover {
+            background-color: #d1f2ff;
+            transform: scale(1.1);
+        }
+        .fork-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: transform 0.2s;
+        }
+        .fork-cell:hover .fork-dot {
+            transform: scale(1.2);
+        }
+        .warning {
+            background-color: #e74c3c;
+            color: white;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .chart-container {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            width: 100%; /* Lebar sama dengan tabel */
+            max-height: 400px; /* Tinggi maksimum yang sebanding dengan tabel */
+            min-height: 400px; /* Tinggi minimum untuk konsistensi */
+            height: auto; /* Menyesuaikan dengan konten */
+        }
+        #growthTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in;
+            max-height: 400px; /* Batas tinggi tabel untuk konsistensi dengan grafik */
+            overflow-y: auto; /* Tambahkan scroll jika tabel terlalu panjang */
+        }
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            display: none;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Simulasi Keuntungan 100% per Transaksi</h1>
+        <p>Jika modal awal Anda adalah $0.50 dan setiap transaksi memberikan keuntungan sebesar 100%, artinya setiap kali Anda melakukan transaksi, modal awal Anda akan berlipat ganda. Dengan kata lain, setelah transaksi pertama, modal awal $0.50 akan menjadi $1.00, setelah transaksi kedua menjadi $2.00, dan seterusnya. Proses ini menunjukkan bagaimana modal Anda berkembang secara eksponensial dari satu transaksi ke transaksi berikutnya. Berikut adalah tabel dan visualisasi yang menunjukkan detail pertumbuhan modal:</p>
+
+        <div class="legend">
+            <div class="legend-item"><div class="legend-color" style="background: #3498db;"></div> Transaksi Awal</div>
+            <div class="legend-item"><div class="legend-color" style="background: #2ecc71;"></div> Transaksi Pertumbuhan</div>
+            <div class="legend-item"><div class="legend-color" style="background: #e74c3c;"></div> Transaksi Puncak</div>
+        </div>
+
+        <table id="growthTable">
+            <thead>
+                <tr>
+                    <th>Transaksi</th>
+                    <th>Volume</th>
+                    <th>Target Poin</th>
+                    <th>Modal Awal ($)</th>
+                    <th>Keuntungan</th>
+                    <th>Modal Akhir ($)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data Rows will be inserted here -->
+            </tbody>
+        </table>
+
+        <div class="chart-container">
+            <canvas id="growthChart"></canvas>
+        </div>
+
+        <div class="warning">
+            <strong>Hati-hati ketika order menjelang pergantian H4</strong>
+            <p>Pada jam 17:00 WIB adalah penutupan harga inti ETHUSD H4</p>
+            <p>Butuh Sebelas Langkah saja untuk memiliki modal seribu dolar</p>
+        </div>
+        <div class="tooltip" id="tooltip"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const data = [
+            {transaksi: 1, volume: 0.01, targetPoin: 5000, modalAwal: 0.50, keuntungan: 0.50, modalAkhir: 1.00, color: '#3498db'},
+            {transaksi: 2, volume: 0.02, targetPoin: 5000, modalAwal: 1.00, keuntungan: 1.00, modalAkhir: 2.00, color: '#2ecc71'},
+            {transaksi: 3, volume: 0.04, targetPoin: 5000, modalAwal: 2.00, keuntungan: 2.00, modalAkhir: 4.00, color: '#2ecc71'},
+            {transaksi: 4, volume: 0.08, targetPoin: 5000, modalAwal: 4.00, keuntungan: 4.00, modalAkhir: 8.00, color: '#2ecc71'},
+            {transaksi: 5, volume: 0.16, targetPoin: 5000, modalAwal: 8.00, keuntungan: 8.00, modalAkhir: 16.00, color: '#2ecc71'},
+            {transaksi: 6, volume: 0.32, targetPoin: 5000, modalAwal: 16.00, keuntungan: 16.00, modalAkhir: 32.00, color: '#2ecc71'},
+            {transaksi: 7, volume: 0.64, targetPoin: 5000, modalAwal: 32.00, keuntungan: 32.00, modalAkhir: 64.00, color: '#2ecc71'},
+            {transaksi: 8, volume: 1.28, targetPoin: 5000, modalAwal: 64.00, keuntungan: 64.00, modalAkhir: 128.00, color: '#2ecc71'},
+            {transaksi: 9, volume: 2.56, targetPoin: 5000, modalAwal: 128.00, keuntungan: 128.00, modalAkhir: 256.00, color: '#2ecc71'},
+            {transaksi: 10, volume: 5.12, targetPoin: 5000, modalAwal: 256.00, keuntungan: 256.00, modalAkhir: 512.00, color: '#2ecc71'},
+            {transaksi: 11, volume: 10.00, targetPoin: 5000, modalAwal: 512.00, keuntungan: 500.00, modalAkhir: 1012.00, color: '#e74c3c'}
+        ];
+
+        function populateTable() {
+            const tableBody = document.querySelector("#growthTable tbody");
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="fork-cell" data-name="Transaksi ${row.transaksi}">
+                        <div class="fork-dot" style="background: ${row.color};"></div>
+                        ${row.transaksi}
+                    </td>
+                    <td>${row.volume.toFixed(2)}</td>
+                    <td>${row.targetPoin}</td>
+                    <td>${row.modalAwal.toFixed(2)}</td>
+                    <td>${row.keuntungan.toFixed(2)}</td>
+                    <td>${row.modalAkhir.toFixed(2)}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        const forkCells = document.querySelectorAll('.fork-cell');
+        const tooltip = document.getElementById('tooltip');
+
+        forkCells.forEach(cell => {
+            cell.addEventListener('mouseover', (e) => {
+                tooltip.textContent = cell.getAttribute('data-name');
+                tooltip.style.display = 'block';
+                tooltip.style.left = e.pageX + 10 + 'px';
+                tooltip.style.top = e.pageY - 20 + 'px';
+            });
+
+            cell.addEventListener('mouseout', () => {
+                tooltip.style.display = 'none';
+            });
+
+            cell.addEventListener('mousemove', (e) => {
+                tooltip.style.left = e.pageX + 10 + 'px';
+                tooltip.style.top = e.pageY - 20 + 'px';
+            });
+        });
+
+        // Chart.js untuk visualisasi pertumbuhan modal dengan skala Y khusus
+        const ctx = document.getElementById('growthChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.map(row => `Transaksi ${row.transaksi}`),
+                datasets: [{
+                    label: 'Modal Akhir ($)',
+                    data: data.map(row => row.modalAkhir),
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true,
+                    tension: 0.1,
+                    pointBackgroundColor: data.map(row => row.color),
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                const customTicks = [0, 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1200];
+                                return customTicks.includes(value) ? value : null;
+                            },
+                            stepSize: 1,
+                            autoSkip: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Modal Akhir ($)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Transaksi'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                }
+            }
+        });
+
+        window.onload = populateTable;
+    </script>
+</body>
+</html>
