@@ -3,36 +3,23 @@ import requests
 
 app = Flask(__name__)
 
-# API Key Anda
-API_KEY = "F9pJe0lFkaKjkcMRnXn03n84UCk46jYI"
+BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAAP7QzwEAAAAA2w%2BL1BRc5%2F%2B7qldCS8I%2FJ9aEjWg%3D0rSdtjlz6yATY9JWAaUdU1YVx73KjZ29aUYu14oEn3PQFdcNlH"  # Ganti dengan Bearer Token baru setelah regenerasi
 
 @app.route('/')
 def home():
     return app.send_static_file('index.html')
 
-@app.route('/api/test', methods=['POST'])
-def test_api():
+@app.route('/api/twitter', methods=['GET'])
+def get_twitter_data():
+    query = request.args.get('query')
+    if not query:
+        return jsonify({'error': 'Query parameter is required'}), 400
+    
+    api_url = f"https://api.twitter.com/2/tweets/search/recent?query={query}&max_results=10"
+    
     try:
-        data = request.json.get('input')
-        
-        # Contoh penggunaan API Key (sesuaikan dengan API yang Anda gunakan)
-        headers = {
-            'Authorization': f'Bearer {API_KEY}',
-            'Content-Type': 'application/json'
-        }
-        
-        # Ganti URL ini dengan endpoint API yang sebenarnya
-        response = requests.post(
-            'https://api.example.com/endpoint',
-            headers=headers,
-            json={'data': data}
-        )
-        
-        if response.status_code == 200:
-            return jsonify({'result': response.json()})
-        else:
-            return jsonify({'error': f'API Error: {response.status_code}'}), 400
-            
+        response = requests.get(api_url, headers={'Authorization': f'Bearer {BEARER_TOKEN}'})
+        return jsonify(response.json())
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
