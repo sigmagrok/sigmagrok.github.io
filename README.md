@@ -29,3 +29,7 @@ Contoh penggunaan kode API `37e69887-7cd7-4c46-8300-e3a6f5805dc5` untuk mengakse
    ```sh
    git clone https://github.com/nama-pengguna/api-example.git
 
+API key created
+API key successfully created. Please copy it now, it will not be shown again. Note that it may take a few minutes to be usable.
+```sh
+F9pJe0lFkaKjkcMRnXn03n84UCk46jYI
