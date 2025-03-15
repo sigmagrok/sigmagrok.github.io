@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple API App</title>
+    <title>Simple API Tester - Sigma Grok</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -65,28 +65,49 @@
     </div>
 
     <script>
-        function sendRequest() {
+        async function sendRequest() {
             const input = document.getElementById('apiInput').value;
             const resultDiv = document.getElementById('result');
             
-            fetch('/api/test', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ input: input })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    resultDiv.innerHTML = `Error: ${data.error}`;
+            // API Key (Catatan: Tidak aman menyimpan di sini, ini hanya untuk demo)
+            const apiKey = "F9pJe0lFkaKjkcMRnXn03n84UCk46jYI";
+
+            // Endpoint API xAI (ganti dengan endpoint yang benar dari dokumentasi xAI)
+            const apiUrl = "https://api.x.ai/v1/chat/completions"; // Contoh endpoint, sesuaikan dengan yang benar
+
+            try {
+                resultDiv.innerHTML = "Mengirim request...";
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: "grok", // Model yang digunakan, misalnya "grok"
+                        messages: [
+                            {
+                                role: "user",
+                                content: input
+                            }
+                        ],
+                        max_tokens: 100 // Batasi panjang respons
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Tampilkan hasil dari API (misalnya, respons teks dari Grok)
+                    const result = data.choices[0].message.content;
+                    resultDiv.innerHTML = result;
                 } else {
-                    resultDiv.innerHTML = JSON.stringify(data.result, null, 2);
+                    resultDiv.innerHTML = `Error: ${data.error.message || 'Terjadi kesalahan'}`;
                 }
-            })
-            .catch(error => {
+            } catch (error) {
                 resultDiv.innerHTML = `Error: ${error.message}`;
-            });
+            }
         }
     </script>
 </body>
