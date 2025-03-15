@@ -3,38 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Pages Website</title>
+    <title>Python in HTML</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 1em;
+        .container {
             text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        main {
-            padding: 2em;
+        h1 {
+            color: #333;
         }
 
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 1em;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+        p {
+            color: #666;
+            font-size: 1.2em;
         }
 
         a {
-            color: #4CAF50;
+            color: #007BFF;
             text-decoration: none;
         }
 
@@ -44,15 +44,15 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Website</h1>
-    </header>
-    <main>
-        <p>This is a simple website hosted on GitHub Pages.</p>
-        <p>Visit this interesting link: <a href="https://chat.mistral.ai/chat" target="_blank">Mistral AI Chat</a></p>
-    </main>
-    <footer>
-        <p>&copy; 2023 My Website</p>
-    </footer>
+    <div class="container">
+        <h1>Python Output</h1>
+        <p id="python-output">Loading...</p>
+        <p>Visit our chat page: <a href="https://chat.mistral.ai/chat" target="_blank">Chat with Mistral AI</a></p>
+    </div>
+
+    <script>
+        // Kode Python akan dieksekusi di sisi server, tetapi kita bisa meniru hasilnya di sini
+        document.getElementById('python-output').innerText = "Hello, World!";
+    </script>
 </body>
 </html>
