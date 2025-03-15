@@ -69,11 +69,8 @@
             const input = document.getElementById('apiInput').value;
             const resultDiv = document.getElementById('result');
             
-            // API Key (Catatan: Tidak aman menyimpan di sini, ini hanya untuk demo)
             const apiKey = "F9pJe0lFkaKjkcMRnXn03n84UCk46jYI";
-
-            // Endpoint API xAI (ganti dengan endpoint yang benar dari dokumentasi xAI)
-            const apiUrl = "https://api.x.ai/v1/chat/completions"; // Contoh endpoint, sesuaikan dengan yang benar
+            const apiUrl = "https://api.x.ai/v1/chat/completions"; // Sesuaikan endpoint ini
 
             try {
                 resultDiv.innerHTML = "Mengirim request...";
@@ -85,27 +82,28 @@
                         'Authorization': `Bearer ${apiKey}`
                     },
                     body: JSON.stringify({
-                        model: "grok", // Model yang digunakan, misalnya "grok"
+                        model: "grok", // Ganti dengan model yang benar jika berbeda
                         messages: [
                             {
                                 role: "user",
                                 content: input
                             }
                         ],
-                        max_tokens: 100 // Batasi panjang respons
+                        max_tokens: 100
                     })
                 });
 
                 const data = await response.json();
+                console.log("Response Data:", data); // Log untuk debugging
 
                 if (response.ok) {
-                    // Tampilkan hasil dari API (misalnya, respons teks dari Grok)
                     const result = data.choices[0].message.content;
                     resultDiv.innerHTML = result;
                 } else {
-                    resultDiv.innerHTML = `Error: ${data.error.message || 'Terjadi kesalahan'}`;
+                    resultDiv.innerHTML = `Error: ${data.error?.message || 'Terjadi kesalahan pada server'}`;
                 }
             } catch (error) {
+                console.error("Error Details:", error); // Log error untuk debugging
                 resultDiv.innerHTML = `Error: ${error.message}`;
             }
         }
