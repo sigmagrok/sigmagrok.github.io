@@ -3,41 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Example</title>
-</head>
-<body>
-    <h1>Contoh Penggunaan API</h1>
-    <button id="fetchDataBtn">Ambil Data dari API</button>
-    <pre id="apiResponse"></pre>
-
-    <script>
-        // Kode API
-        const API_KEY = '51d56e94-fedb-4558-928e-e78ccad4a2e2';
-        const API_URL = 'https://api.contoh.com/data'; // Ganti dengan URL API yang sesuai
-
-        // Fungsi untuk mengakses API
-        async function getDataFromApi() {
-            try {
-                const response = await fetch(API_URL, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${API_KEY}`
-                    }
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    document.getElementById('apiResponse').textContent = JSON.stringify(data, null, 2);
-                } else {
-                    document.getElementById('apiResponse').textContent = `Gagal mengakses API. Kode status: ${response.status}`;
-                }
-            } catch (error) {
-                document.getElementById('apiResponse').textContent = `Error: ${error.message}`;
-            }
+    <title>My GitHub Pages Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
 
-        // Tambahkan event listener ke tombol
-        document.getElementById('fetchDataBtn').addEventListener('click', getDataFromApi);
-    </script>
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+
+        main {
+            padding: 2em;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Website</h1>
+    </header>
+    <main>
+        <p>This is a simple website hosted on GitHub Pages.</p>
+        <p>Visit this interesting link: <a href="https://chat.mistral.ai/chat" target="_blank">Mistral AI Chat</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2023 My Website</p>
+    </footer>
 </body>
 </html>
