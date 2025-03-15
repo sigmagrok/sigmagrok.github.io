@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple API Tester - Sigma Grok</title>
+    <title>Simple API Tester - X API v2</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,13 +53,14 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             min-height: 50px;
+            white-space: pre-wrap;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Simple API Tester</h1>
-        <input type="text" id="apiInput" placeholder="Masukkan data untuk API">
+        <input type="text" id="apiInput" placeholder="Masukkan kata kunci (misal: #teknologi)">
         <button onclick="sendRequest()">Kirim</button>
         <div id="result">Hasil akan muncul di sini</div>
     </div>
@@ -69,41 +70,38 @@
             const input = document.getElementById('apiInput').value;
             const resultDiv = document.getElementById('result');
             
-            const apiKey = "F9pJe0lFkaKjkcMRnXn03n84UCk46jYI";
-            const apiUrl = "https://api.x.ai/v1/chat/completions"; // Sesuaikan endpoint ini
+            // Bearer Token Anda (regenerasi jika Anda merasa ini tidak aman)
+            const bearerToken = "AAAAAAAAAAAAAAAAAAAAAP7QzwEAAAAA2w%2BL1BRc5%2F%2B7qldCS8I%2FJ9aEjWg%3D0rSdtjlz6yATY9JWAaUdU1YVx73KjZ29aUYu14oEn3PQFdcNlH";
+
+            // Endpoint X API v2 untuk mencari tweet terbaru
+            const apiUrl = `https://api.twitter.com/2/tweets/search/recent?query=${encodeURIComponent(input)}&max_results=10`;
 
             try {
                 resultDiv.innerHTML = "Mengirim request...";
                 
                 const response = await fetch(apiUrl, {
-                    method: 'POST',
+                    method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`
-                    },
-                    body: JSON.stringify({
-                        model: "grok", // Ganti dengan model yang benar jika berbeda
-                        messages: [
-                            {
-                                role: "user",
-                                content: input
-                            }
-                        ],
-                        max_tokens: 100
-                    })
+                        'Authorization': `Bearer ${bearerToken}`
+                    }
                 });
 
                 const data = await response.json();
-                console.log("Response Data:", data); // Log untuk debugging
+                console.log("Response Data:", data);
 
                 if (response.ok) {
-                    const result = data.choices[0].message.content;
-                    resultDiv.innerHTML = result;
+                    if (data.data && data.data.length > 0) {
+                        // Tampilkan teks tweet
+                        const tweets = data.data.map(tweet => `Tweet: ${tweet.text}`).join('\n');
+                        resultDiv.innerHTML = tweets;
+                    } else {
+                        resultDiv.innerHTML = "Tidak ada tweet ditemukan untuk kueri ini.";
+                    }
                 } else {
-                    resultDiv.innerHTML = `Error: ${data.error?.message || 'Terjadi kesalahan pada server'}`;
+                    resultDiv.innerHTML = `Error: ${data.title || 'Terjadi kesalahan pada server'}`;
                 }
             } catch (error) {
-                console.error("Error Details:", error); // Log error untuk debugging
+                console.error("Error Details:", error);
                 resultDiv.innerHTML = `Error: ${error.message}`;
             }
         }
