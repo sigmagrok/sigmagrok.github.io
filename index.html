@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Example</title>
+</head>
+<body>
+    <h1>Contoh Penggunaan API</h1>
+    <button id="fetchDataBtn">Ambil Data dari API</button>
+    <pre id="apiResponse"></pre>
+
+    <script>
+        // Kode API
+        const API_KEY = '37e69887-7cd7-4c46-8300-e3a6f5805dc5';
+        const API_URL = 'https://api.contoh.com/data'; // Ganti dengan URL API yang sesuai
+
+        // Fungsi untuk mengakses API
+        async function getDataFromApi() {
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${API_KEY}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('apiResponse').textContent = JSON.stringify(data, null, 2);
+                } else {
+                    document.getElementById('apiResponse').textContent = `Gagal mengakses API. Kode status: ${response.status}`;
+                }
+            } catch (error) {
+                document.getElementById('apiResponse').textContent = `Error: ${error.message}`;
+            }
+        }
+
+        // Tambahkan event listener ke tombol
+        document.getElementById('fetchDataBtn').addEventListener('click', getDataFromApi);
+    </script>
+</body>
+</html>
