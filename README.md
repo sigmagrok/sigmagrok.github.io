@@ -29,7 +29,18 @@ Contoh penggunaan kode API `37e69887-7cd7-4c46-8300-e3a6f5805dc5` untuk mengakse
    ```sh
    git clone https://github.com/nama-pengguna/api-example.git
 
-API key created
+Bearer Token
 API key successfully created. Please copy it now, it will not be shown again. Note that it may take a few minutes to be usable.
+
+   ```sh
+   AAAAAAAAAAAAAAAAAAAAAP7QzwEAAAAA2w%2BL1BRc5%2F%2B7qldCS8I%2FJ9aEjWg%3D0rSdtjlz6yATY9JWAaUdU1YVx73KjZ29aUYu14oEn3PQFdcNlH
+```
+Access Token
+
 ```sh
-F9pJe0lFkaKjkcMRnXn03n84UCk46jYI
+234686181-d4oDV1Kr39PR6kyxPHcyHFZIYTwzJvpAUgmkeDO5
+```
+Access Token Secret
+```sh
+VpJSEKXw7fVMIHQiu2kAVavMPT1z9jp2js3fpw9Mp5frG
+```
