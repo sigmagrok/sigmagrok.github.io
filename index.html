@@ -1,63 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dividend Income Display</title>
+    <title>Kata Bijak</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Georgia', serif; /* Font elegan untuk kesan bijaksana */
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh; /* Menggunakan min-height agar konten panjang tetap terlihat */
+            min-height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background: linear-gradient(135deg, #4a2c6d, #1e90ff); /* Latar gradien */
         }
-        .dividend-box {
-            background-color: #2e5e4e; /* Warna hijau tua */
-            color: white;
-            padding: 25px; /* Sedikit lebih besar untuk ruang */
-            border-radius: 10px;
-            text-align: left;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 300px;
-            max-width: 90%; /* Membatasi lebar pada layar kecil */
-            box-sizing: border-box; /* Memastikan padding tidak menambah lebar */
+        .quote-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Putih transparan */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            text-align: center;
+            position: relative;
         }
-        .dividend-box h1 {
+        .quote-container::before {
+            content: '“'; /* Tanda kutip besar di awal */
+            font-size: 50px;
+            color: #4a2c6d;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+        }
+        .quote-container::after {
+            content: '”'; /* Tanda kutip besar di akhir */
+            font-size: 50px;
+            color: #4a2c6d;
+            position: absolute;
+            bottom: -20px;
+            right: 20px;
+        }
+        .quote {
             font-size: 24px;
-            margin: 0 0 10px; /* Memberi jarak bawah */
+            color: #333;
+            margin: 20px 0;
+            line-height: 1.4;
         }
-        .dividend-box h2 {
-            font-size: 32px; /* Sedikit dikecilkan agar proporsional */
-            margin: 10px 0;
-            font-weight: normal; /* Mengurangi ketebalan default */
-        }
-        .dividend-box p {
+        .author {
             font-size: 18px;
-            margin: 8px 0; /* Jarak antar paragraf lebih seragam */
-            display: flex;
-            justify-content: space-between; /* Menggantikan float untuk layout lebih baik */
-            align-items: center;
-        }
-        .dividend-box p strong {
-            font-size: 24px; /* Membuat angka utama lebih menonjol */
-        }
-        .dividend-box p span {
-            font-weight: bold; /* Membuat angka di sebelah kanan lebih tebal */
+            color: #666;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
-    <div class="dividend-box">
-        <h1>Sigma Grok</h1>
-        <h2>Annual Dividend Income</h2>
-        <p><strong>$2,148.90</strong></p>
-        <p>Monthly <span>$179.08</span></p>
-        <p>Daily <span>$5.89</span></p>
-        <p>Yield <span>79.74%</span></p>
-        <p>Yield on Cost <span>82.53%</span></p>
+    <div class="quote-container">
+        <p class="quote">Hidup adalah misteri yang harus dijalani, bukan masalah yang harus diselesaikan.</p>
+        <p class="author">— Jalaluddin Rumi</p>
     </div>
 </body>
 </html>
