@@ -236,6 +236,17 @@
             font-family: 'Open Sans', sans-serif;
         }
 
+        /* Tambahan CSS untuk memastikan widget TradingView responsif */
+        .tradingview-widget-container {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .tradingview-widget-container__widget {
+            width: 100%;
+            overflow-x: auto;
+        }
+
         @media (max-width: 600px) {
             .table-container {
                 overflow-x: auto;
@@ -254,6 +265,11 @@
     <!-- TradingView Ticker Widget -->
     <div class="tradingview-widget-container">
         <div class="tradingview-widget-container__widget"></div>
+        <div class="tradingview-widget-copyright">
+            <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
+                <span class="blue-text">Markets by TradingView</span>
+            </a>
+        </div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker.js" async>
         {
             "symbols": [
@@ -486,6 +502,17 @@
                 localStorage.removeItem('transactions');
                 updateTable();
                 updateSummary();
+            }
+        });
+
+        // Tambahkan event listener untuk memastikan widget dimuat
+        window.addEventListener('load', function() {
+            console.log('Page fully loaded. Checking TradingView widget...');
+            const widgetContainer = document.querySelector('.tradingview-widget-container__widget');
+            if (widgetContainer && widgetContainer.children.length === 0) {
+                console.error('TradingView widget failed to load.');
+            } else {
+                console.log('TradingView widget loaded successfully.');
             }
         });
     </script>
