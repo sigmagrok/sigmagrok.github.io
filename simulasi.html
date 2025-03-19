@@ -111,6 +111,13 @@
             padding: 12px;
             text-align: right;
             border-bottom: 1px solid #e5e7eb;
+            border-right: 1px solid #e5e7eb; /* Garis vertikal */
+        }
+
+        /* Menghapus garis vertikal pada kolom terakhir */
+        .table-container th:last-child, .table-container td:last-child,
+        .summary-container th:last-child, .summary-container td:last-child {
+            border-right: none;
         }
 
         .table-container th, .summary-container th {
