@@ -4,124 +4,185 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sigma Grok</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
+    <style>
+        body {
+            font-family: 'Georgia', serif; /* Mengganti Arial dengan Georgia dari Kode B */
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #4a2c6d, #1e90ff); /* Gradien dari Kode B */
+            min-height: 100vh; /* Memastikan gradien memenuhi layar */
+        }
 
-h1, h2 {
-    color: #333;
-}
+        h1, h2 {
+            color: #fff; /* Mengubah warna teks agar kontras dengan gradien */
+        }
 
-.form-container, .table-container, .summary-container {
-    margin: 20px 0;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
+        .form-container, .table-container, .summary-container {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.9); /* Putih transparan untuk kontras */
+        }
 
-.form-container label {
-    display: inline-block;
-    width: 120px;
-    margin: 5px 0;
-}
+        .form-container label {
+            display: inline-block;
+            width: 120px;
+            margin: 5px 0;
+            color: #333; /* Warna teks label */
+        }
 
-.form-container input, .form-container select {
-    margin: 5px 0;
-    padding: 5px;
-    width: 200px;
-}
+        .form-container input, .form-container select {
+            margin: 5px 0;
+            padding: 5px;
+            width: 200px;
+        }
 
-.error-message {
-    color: red;
-    margin-top: 5px;
-    display: none;
-}
+        .error-message {
+            color: red;
+            margin-top: 5px;
+            display: none;
+        }
 
-button {
-    padding: 8px 15px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-    border-radius: 8px;
-}
+        button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 8px;
+        }
 
-button:hover {
-    background-color: #45a049;
-}
+        button:hover {
+            background-color: #45a049;
+        }
 
-#resetButton {
-    background-color: #f44336;
-}
+        #resetButton {
+            background-color: #f44336;
+        }
 
-#resetButton:hover {
-    background-color: #da190b;
-}
+        #resetButton:hover {
+            background-color: #da190b;
+        }
 
-.table-container table, .summary-container table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
+        .table-container table, .summary-container table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
 
-.table-container th, .table-container td,
-.summary-container th, .summary-container td {
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #333;
-}
+        .table-container th, .table-container td,
+        .summary-container th, .summary-container td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #333;
+        }
 
-.table-container th, .summary-container th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
+        .table-container th, .summary-container th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
 
-.table-container td, .summary-container td {
-    background-color: #fff;
-}
+        .table-container td, .summary-container td {
+            background-color: #fff;
+        }
 
-.table-container tr:nth-child(even) td,
-.summary-container tr:nth-child(even) td {
-    background-color: #f9f9f9;
-}
+        .table-container tr:nth-child(even) td,
+        .summary-container tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
 
-.table-container tr:hover td,
-.summary-container tr:hover td {
-    background-color: #f1f1f1;
-}
+        .table-container tr:hover td,
+        .summary-container tr:hover td {
+            background-color: #f1f1f1;
+        }
 
-.summary-container table {
-    max-width: 400px;
-}
+        .summary-container table {
+            max-width: 400px;
+        }
 
-caption {
-    padding: 10px;
-    font-weight: bold;
-    color: #333;
-}
+        caption {
+            padding: 10px;
+            font-weight: bold;
+            color: #333;
+        }
 
-caption a {
-    color: #0066cc;
-    text-decoration: none;
-}
+        caption a {
+            color: #0066cc;
+            text-decoration: none;
+        }
 
-caption a:hover {
-    text-decoration: underline;
-}
+        caption a:hover {
+            text-decoration: underline;
+        }
 
-@media (max-width: 600px) {
-    .table-container {
-        overflow-x: auto;
-    }
-}
-</style>
+        /* Elemen dari Kode B */
+        .quote-container {
+            background-color: rgba(240, 200, 100, 0.9); /* Emas lembut dari Kode B */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            margin: 20px auto; /* Pemusatan dan jarak seperti elemen lain */
+        }
+
+        .quote-container::before {
+            content: '“';
+            font-size: 50px;
+            color: #4a2c6d;
+            position: absolute;
+            top: -20px;
+            left: 20px;
+        }
+
+        .quote-container::after {
+            content: '”';
+            font-size: 50px;
+            color: #4a2c6d;
+            position: absolute;
+            bottom: -20px;
+            right: 20px;
+        }
+
+        .quote {
+            font-size: 24px;
+            color: #333;
+            margin: 20px 0;
+            line-height: 1.4;
+        }
+
+        .author {
+            font-size: 18px;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Responsivitas */
+        @media (max-width: 600px) {
+            .table-container {
+                overflow-x: auto;
+            }
+            .form-container label, .form-container input, .form-container select {
+                width: 100%; /* Membuat elemen formulir full-width di layar kecil */
+                box-sizing: border-box;
+            }
+            .quote-container {
+                max-width: 90%; /* Menyesuaikan lebar kutipan di layar kecil */
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Elemen dekoratif dari Kode B -->
+    <div class="quote-container">
+        <p class="quote">Hidup adalah misteri yang harus dijalani, bukan masalah yang harus diselesaikan.</p>
+        <p class="author">— Jalaluddin Rumi</p>
+    </div>
+
     <h1>Simulasi Perdagangan Sigma Grok</h1>
     
     <!-- Form untuk menambah transaksi -->
