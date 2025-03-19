@@ -236,7 +236,7 @@
             font-family: 'Open Sans', sans-serif;
         }
 
-        /* Tambahan CSS untuk memastikan widget TradingView responsif */
+        /* CSS untuk memastikan widget TradingView responsif */
         .tradingview-widget-container {
             width: 100%;
             margin-bottom: 20px;
@@ -257,6 +257,9 @@
             }
             .quote-container {
                 max-width: 90%;
+            }
+            .tradingview-widget-container__widget {
+                font-size: 12px;
             }
         }
     </style>
@@ -505,12 +508,12 @@
             }
         });
 
-        // Tambahkan event listener untuk memastikan widget dimuat
+        // Debugging untuk memastikan widget dimuat
         window.addEventListener('load', function() {
             console.log('Page fully loaded. Checking TradingView widget...');
             const widgetContainer = document.querySelector('.tradingview-widget-container__widget');
             if (widgetContainer && widgetContainer.children.length === 0) {
-                console.error('TradingView widget failed to load.');
+                console.error('TradingView widget failed to load. Check network, AdBlocker, or script errors.');
             } else {
                 console.log('TradingView widget loaded successfully.');
             }
