@@ -6,60 +6,66 @@
     <title>Sigma Grok</title>
     <style>
         body {
-            font-family: 'Georgia', serif; /* Mengganti Arial dengan Georgia dari Kode B */
+            font-family: 'Georgia', serif;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background: linear-gradient(135deg, #4a2c6d, #1e90ff); /* Gradien dari Kode B */
-            min-height: 100vh; /* Memastikan gradien memenuhi layar */
+            background: linear-gradient(135deg, #4a2c6d, #1e90ff);
+            min-height: 100vh;
         }
 
         h1, h2 {
-            color: #fff; /* Warna default untuk h1 dan h2 tetap putih */
+            color: #fff;
         }
 
-        /* Menimpa warna h2 di dalam container spesifik menjadi hitam */
         .form-container h2, 
         .table-container h2, 
         .summary-container h2 {
-            color: #000; /* Hitam */
+            color: #000;
+            font-size: 28px; /* Memperbesar ukuran font h2 */
         }
 
         .form-container, .table-container, .summary-container {
             margin: 20px 0;
-            padding: 15px;
+            padding: 20px; /* Meningkatkan padding */
             border: 1px solid #ddd;
             border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.9); /* Putih transparan untuk kontras */
+            background-color: rgba(255, 255, 255, 0.9);
         }
 
         .form-container label {
             display: inline-block;
-            width: 120px;
-            margin: 5px 0;
-            color: #333; /* Warna teks label */
+            width: 150px; /* Memperbesar lebar label */
+            margin: 10px 0; /* Meningkatkan margin */
+            color: #333;
+            font-size: 18px; /* Memperbesar ukuran font label */
         }
 
         .form-container input, .form-container select {
-            margin: 5px 0;
-            padding: 5px;
-            width: 200px;
+            margin: 10px 0; /* Meningkatkan margin */
+            padding: 8px; /* Meningkatkan padding */
+            width: 300px; /* Memperbesar lebar kolom input */
+            font-size: 16px; /* Memperbesar ukuran font input */
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
 
         .error-message {
             color: red;
             margin-top: 5px;
             display: none;
+            font-size: 16px; /* Memperbesar ukuran font pesan error */
         }
 
         button {
-            padding: 8px 15px;
+            padding: 10px 20px; /* Memperbesar tombol */
             background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 15px; /* Meningkatkan margin */
             border-radius: 8px;
+            font-size: 16px; /* Memperbesar ukuran font tombol */
         }
 
         button:hover {
@@ -125,16 +131,15 @@
             text-decoration: underline;
         }
 
-        /* Elemen dari Kode B */
         .quote-container {
-            background-color: rgba(240, 200, 100, 0.9); /* Emas lembut dari Kode B */
+            background-color: rgba(240, 200, 100, 0.9);
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
             max-width: 500px;
             text-align: center;
             position: relative;
-            margin: 20px auto; /* Pemusatan dan jarak seperti elemen lain */
+            margin: 20px auto;
         }
 
         .quote-container::before {
@@ -168,23 +173,21 @@
             font-style: italic;
         }
 
-        /* Responsivitas */
         @media (max-width: 600px) {
             .table-container {
                 overflow-x: auto;
             }
             .form-container label, .form-container input, .form-container select {
-                width: 100%; /* Membuat elemen formulir full-width di layar kecil */
+                width: 100%;
                 box-sizing: border-box;
             }
             .quote-container {
-                max-width: 90%; /* Menyesuaikan lebar kutipan di layar kecil */
+                max-width: 90%;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Elemen dekoratif dari Kode B -->
     <div class="quote-container">
         <p class="quote">Hidup adalah misteri yang harus dijalani, bukan masalah yang harus diselesaikan.</p>
         <p class="author">— Jalaluddin Rumi</p>
@@ -192,7 +195,6 @@
 
     <h1>Simulasi Perdagangan Sigma Grok</h1>
     
-    <!-- Form untuk menambah transaksi -->
     <div class="form-container">
         <h2>Tambah Transaksi</h2>
         <form id="transactionForm">
@@ -223,7 +225,6 @@
         </form>
     </div>
 
-    <!-- Tabel transaksi -->
     <div class="table-container">
         <h2>Daftar Transaksi</h2>
         <table id="transactionTable">
@@ -243,7 +244,6 @@
         </table>
     </div>
 
-    <!-- Ringkasan -->
     <div class="summary-container">
         <h2>Ringkasan</h2>
         <table id="summaryTable">
@@ -268,26 +268,19 @@
     </div>
 
     <script>
-        // Daftar simbol yang valid
         const validSymbols = ['EURUSD', 'XAUUSD', 'BTC', 'ETH'];
-
-        // Muat transaksi dari localStorage saat halaman dimuat
         let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
 
-        // Perbarui tabel dan ringkasan saat halaman dimuat
         updateTable();
         updateSummary();
 
         document.getElementById('transactionForm').addEventListener('submit', function(e) {
             e.preventDefault();
-
-            // Ambil elemen untuk menampilkan pesan error
             const errorMessage = document.getElementById('errorMessage');
             errorMessage.style.display = 'none';
             errorMessage.textContent = '';
 
             try {
-                // Ambil nilai dari form
                 const asset = document.getElementById('asset').value.toUpperCase();
                 const type = document.getElementById('type').value;
                 const amount = parseFloat(document.getElementById('amount').value);
@@ -295,35 +288,31 @@
                 const exit = document.getElementById('exit').value ? parseFloat(document.getElementById('exit').value) : null;
                 const notes = document.getElementById('notes').value;
 
-                // Validasi simbol
                 if (!validSymbols.includes(asset)) {
                     throw new Error('Simbol tidak valid. Gunakan EURUSD, XAUUSD, BTC, atau ETH.');
                 }
 
-                // Validasi nilai numerik
                 if (isNaN(amount) || isNaN(entry) || (exit !== null && isNaN(exit))) {
                     throw new Error('Harga atau ukuran tidak valid.');
                 }
 
-                // Hitung profit/loss berdasarkan jenis aset
                 let profitLoss = null;
                 if (exit !== null) {
-                    if (asset === 'EURUSD') { // Logika untuk forex (EURUSD)
-                        const pipValue = 0.0001; // 1 pip
-                        const pipDifference = (exit - entry) / pipValue; // Selisih dalam pip
-                        let baseProfit = pipDifference * 10.00 * amount; // 1 lot = $10 per pip
+                    if (asset === 'EURUSD') {
+                        const pipValue = 0.0001;
+                        const pipDifference = (exit - entry) / pipValue;
+                        let baseProfit = pipDifference * 10.00 * amount;
                         profitLoss = type === 'buy' ? baseProfit : -baseProfit;
-                    } else if (asset === 'XAUUSD') { // Logika untuk XAUUSD
-                        const pointValue = 0.01; // 1 point untuk XAUUSD
-                        const pointDifference = (entry - exit) / pointValue; // Selisih dalam poin (entry - exit untuk sell)
-                        let baseProfit = pointDifference * 1.00 * amount; // 1 lot = $1 per poin
-                        profitLoss = type === 'buy' ? -baseProfit : baseProfit; // Buy: loss jika turun, Sell: profit jika turun
-                    } else { // Logika untuk kripto (BTC, ETH)
+                    } else if (asset === 'XAUUSD') {
+                        const pointValue = 0.01;
+                        const pointDifference = (entry - exit) / pointValue;
+                        let baseProfit = pointDifference * 1.00 * amount;
+                        profitLoss = type === 'buy' ? -baseProfit : baseProfit;
+                    } else {
                         profitLoss = type === 'buy' ? (exit - entry) * amount : (entry - exit) * amount;
                     }
                 }
 
-                // Tambahkan transaksi
                 const transaction = {
                     date: new Date().toLocaleString('id-ID'),
                     asset,
@@ -335,14 +324,8 @@
                     notes
                 };
                 transactions.push(transaction);
-
-                // Simpan ke localStorage
                 localStorage.setItem('transactions', JSON.stringify(transactions));
-
-                // Reset form
                 this.reset();
-
-                // Perbarui tampilan
                 updateTable();
                 updateSummary();
             } catch (error) {
@@ -351,13 +334,11 @@
             }
         });
 
-        // Fungsi untuk memperbarui tabel
         function updateTable() {
             const tbody = document.getElementById('transactionBody');
             tbody.innerHTML = '';
 
             transactions.forEach(t => {
-                // Sesuaikan presisi berdasarkan aset
                 const isEurUsd = t.asset === 'EURUSD';
                 const entryDisplay = Number.isInteger(t.entry) ? t.entry : t.entry.toFixed(isEurUsd ? 5 : 2);
                 const exitDisplay = t.exit !== null ? 
@@ -379,7 +360,6 @@
             });
         }
 
-        // Fungsi untuk memperbarui ringkasan
         function updateSummary() {
             const totalTrades = transactions.length;
             const totalPL = transactions.reduce((sum, t) => sum + (t.profitLoss || 0), 0);
@@ -398,7 +378,6 @@
             document.getElementById('xauTrades').textContent = xauTrades;
         }
 
-        // Event listener untuk tombol reset
         document.getElementById('resetButton').addEventListener('click', function() {
             if (confirm('Apakah Anda yakin ingin mereset semua data transaksi?')) {
                 transactions = [];
