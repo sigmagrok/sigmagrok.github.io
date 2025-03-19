@@ -236,15 +236,51 @@
             font-family: 'Open Sans', sans-serif;
         }
 
-        /* CSS untuk memastikan widget TradingView responsif */
-        .tradingview-widget-container {
-            width: 100%;
+        /* CSS untuk Ticker Kustom */
+        .ticker-container {
+            display: flex;
+            align-items: center;
+            background-color: #f3f4f6;
+            padding: 8px 16px;
+            border-bottom: 2px solid #dc2626;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            overflow-x: auto;
+            white-space: nowrap;
             margin-bottom: 20px;
         }
 
-        .tradingview-widget-container__widget {
-            width: 100%;
-            overflow-x: auto;
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            margin-right: 24px;
+        }
+
+        .ticker-item img {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+
+        .ticker-item span {
+            margin-right: 8px;
+        }
+
+        .ticker-item .price {
+            font-weight: 500;
+            color: #1a2a44;
+        }
+
+        .ticker-item .change {
+            font-weight: 500;
+        }
+
+        .ticker-item .change.positive {
+            color: #16a34a;
+        }
+
+        .ticker-item .change.negative {
+            color: #dc2626;
         }
 
         @media (max-width: 600px) {
@@ -258,43 +294,43 @@
             .quote-container {
                 max-width: 90%;
             }
-            .tradingview-widget-container__widget {
+            .ticker-container {
                 font-size: 12px;
+            }
+            .ticker-item {
+                margin-right: 16px;
+            }
+            .ticker-item img {
+                width: 16px;
+                height: 16px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- TradingView Ticker Widget -->
-    <div class="tradingview-widget-container">
-        <div class="tradingview-widget-container__widget"></div>
-        <div class="tradingview-widget-copyright">
-            <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank">
-                <span class="blue-text">Markets by TradingView</span>
-            </a>
+    <!-- Ticker Kustom -->
+    <div class="ticker-container">
+        <div class="ticker-item">
+            <img src="https://flagcdn.com/16x12/eu.png" alt="EU Flag">
+            <img src="https://flagcdn.com/16x12/us.png" alt="US Flag">
+            <span>EUR/USD</span>
+            <span class="price">1.08781</span>
+            <span class="change negative">-0.01 (-0.59%)</span>
         </div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker.js" async>
-        {
-            "symbols": [
-                {
-                    "proName": "FX:EURUSD",
-                    "title": "EUR/USD"
-                },
-                {
-                    "proName": "FX:GBPUSD",
-                    "title": "GBP/USD"
-                },
-                {
-                    "proName": "FX:AUDUSD",
-                    "title": "AUD/USD"
-                }
-            ],
-            "colorTheme": "light",
-            "isTransparent": false,
-            "showSymbolLogo": true,
-            "locale": "en"
-        }
-        </script>
+        <div class="ticker-item">
+            <img src="https://flagcdn.com/16x12/gb.png" alt="GB Flag">
+            <img src="https://flagcdn.com/16x12/us.png" alt="US Flag">
+            <span>GBP/USD</span>
+            <span class="price">1.29670</span>
+            <span class="change negative">-0.00 (-0.27%)</span>
+        </div>
+        <div class="ticker-item">
+            <img src="https://flagcdn.com/16x12/au.png" alt="AU Flag">
+            <img src="https://flagcdn.com/16x12/us.png" alt="US Flag">
+            <span>AUD/USD</span>
+            <span class="price">0.63305</span>
+            <span class="change negative">-0.00 (-0.05%)</span>
+        </div>
     </div>
 
     <div class="quote-container">
@@ -505,17 +541,6 @@
                 localStorage.removeItem('transactions');
                 updateTable();
                 updateSummary();
-            }
-        });
-
-        // Debugging untuk memastikan widget dimuat
-        window.addEventListener('load', function() {
-            console.log('Page fully loaded. Checking TradingView widget...');
-            const widgetContainer = document.querySelector('.tradingview-widget-container__widget');
-            if (widgetContainer && widgetContainer.children.length === 0) {
-                console.error('TradingView widget failed to load. Check network, AdBlocker, or script errors.');
-            } else {
-                console.log('TradingView widget loaded successfully.');
             }
         });
     </script>
