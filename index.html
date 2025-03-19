@@ -10,33 +10,42 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh; /* Menggunakan min-height agar konten panjang tetap terlihat */
             margin: 0;
             background-color: #f0f0f0;
         }
         .dividend-box {
-            background-color: #2e5e4e; /* Warna hijau tua seperti di gambar */
+            background-color: #2e5e4e; /* Warna hijau tua */
             color: white;
-            padding: 20px;
+            padding: 25px; /* Sedikit lebih besar untuk ruang */
             border-radius: 10px;
             text-align: left;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             width: 300px;
+            max-width: 90%; /* Membatasi lebar pada layar kecil */
+            box-sizing: border-box; /* Memastikan padding tidak menambah lebar */
         }
         .dividend-box h1 {
             font-size: 24px;
-            margin: 0;
+            margin: 0 0 10px; /* Memberi jarak bawah */
         }
         .dividend-box h2 {
-            font-size: 36px;
+            font-size: 32px; /* Sedikit dikecilkan agar proporsional */
             margin: 10px 0;
+            font-weight: normal; /* Mengurangi ketebalan default */
         }
         .dividend-box p {
             font-size: 18px;
-            margin: 5px 0;
+            margin: 8px 0; /* Jarak antar paragraf lebih seragam */
+            display: flex;
+            justify-content: space-between; /* Menggantikan float untuk layout lebih baik */
+            align-items: center;
+        }
+        .dividend-box p strong {
+            font-size: 24px; /* Membuat angka utama lebih menonjol */
         }
         .dividend-box p span {
-            float: right;
+            font-weight: bold; /* Membuat angka di sebelah kanan lebih tebal */
         }
     </style>
 </head>
