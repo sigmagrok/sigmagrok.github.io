@@ -3,108 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple API Tester - X API v2</title>
+    <title>Dividend Income Display</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 0;
+            background-color: #f0f0f0;
         }
-
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-
-        input {
-            width: 70%;
-            padding: 8px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        button {
-            padding: 8px 15px;
-            background-color: #4CAF50;
+        .dividend-box {
+            background-color: #2e5e4e; /* Warna hijau tua seperti di gambar */
             color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-
-        button:hover {
-            background-color: #45a049;
+        .dividend-box h1 {
+            font-size: 24px;
+            margin: 0;
         }
-
-        #result {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            min-height: 50px;
-            white-space: pre-wrap;
+        .dividend-box h2 {
+            font-size: 36px;
+            margin: 10px 0;
+        }
+        .dividend-box p {
+            font-size: 18px;
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Simple API Tester</h1>
-        <input type="text" id="apiInput" placeholder="Masukkan kata kunci (misal: #teknologi)">
-        <button onclick="sendRequest()">Kirim</button>
-        <div id="result">Hasil akan muncul di sini</div>
+    <div class="dividend-box">
+        <h1>Hood</h1>
+        <h1>Annual Dividend Income</h1>
+        <h2>$2,148.90</h2>
+        <p>Monthly <span style="float: right;">$179.08</span></p>
+        <p>Daily <span style="float: right;">$5.89</span></p>
+        <p>Yield <span style="float: right;">79.74%</span></p>
+        <p>Yield on Cost <span style="float: right;">82.53%</span></p>
     </div>
-
-    <script>
-        async function sendRequest() {
-            const input = document.getElementById('apiInput').value;
-            const resultDiv = document.getElementById('result');
-            
-            // Bearer Token Anda (regenerasi jika Anda merasa ini tidak aman)
-            const bearerToken = "AAAAAAAAAAAAAAAAAAAAAP7QzwEAAAAA2w%2BL1BRc5%2F%2B7qldCS8I%2FJ9aEjWg%3D0rSdtjlz6yATY9JWAaUdU1YVx73KjZ29aUYu14oEn3PQFdcNlH";
-
-            // Endpoint X API v2 untuk mencari tweet terbaru
-            const apiUrl = `https://api.twitter.com/2/tweets/search/recent?query=${encodeURIComponent(input)}&max_results=10`;
-
-            try {
-                resultDiv.innerHTML = "Mengirim request...";
-                
-                const response = await fetch(apiUrl, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${bearerToken}`
-                    }
-                });
-
-                const data = await response.json();
-                console.log("Response Data:", data);
-
-                if (response.ok) {
-                    if (data.data && data.data.length > 0) {
-                        // Tampilkan teks tweet
-                        const tweets = data.data.map(tweet => `Tweet: ${tweet.text}`).join('\n');
-                        resultDiv.innerHTML = tweets;
-                    } else {
-                        resultDiv.innerHTML = "Tidak ada tweet ditemukan untuk kueri ini.";
-                    }
-                } else {
-                    resultDiv.innerHTML = `Error: ${data.title || 'Terjadi kesalahan pada server'}`;
-                }
-            } catch (error) {
-                console.error("Error Details:", error);
-                resultDiv.innerHTML = `Error: ${error.message}`;
-            }
-        }
-    </script>
 </body>
 </html>
