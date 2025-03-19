@@ -15,7 +15,14 @@
         }
 
         h1, h2 {
-            color: #fff; /* Mengubah warna teks agar kontras dengan gradien */
+            color: #fff; /* Warna default untuk h1 dan h2 tetap putih */
+        }
+
+        /* Menimpa warna h2 di dalam container spesifik menjadi hitam */
+        .form-container h2, 
+        .table-container h2, 
+        .summary-container h2 {
+            color: #000; /* Hitam */
         }
 
         .form-container, .table-container, .summary-container {
