@@ -22,12 +22,12 @@
         .table-container h2, 
         .summary-container h2 {
             color: #000;
-            font-size: 28px; /* Memperbesar ukuran font h2 */
+            font-size: 28px;
         }
 
         .form-container, .table-container, .summary-container {
             margin: 20px 0;
-            padding: 20px; /* Meningkatkan padding */
+            padding: 20px;
             border: 1px solid #ddd;
             border-radius: 5px;
             background-color: rgba(255, 255, 255, 0.9);
@@ -35,17 +35,17 @@
 
         .form-container label {
             display: inline-block;
-            width: 150px; /* Memperbesar lebar label */
-            margin: 10px 0; /* Meningkatkan margin */
+            width: 150px;
+            margin: 10px 0;
             color: #333;
-            font-size: 18px; /* Memperbesar ukuran font label */
+            font-size: 18px;
         }
 
         .form-container input, .form-container select {
-            margin: 10px 0; /* Meningkatkan margin */
-            padding: 8px; /* Meningkatkan padding */
-            width: 300px; /* Memperbesar lebar kolom input */
-            font-size: 16px; /* Memperbesar ukuran font input */
+            margin: 10px 0;
+            padding: 8px;
+            width: 300px;
+            font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
@@ -54,18 +54,18 @@
             color: red;
             margin-top: 5px;
             display: none;
-            font-size: 16px; /* Memperbesar ukuran font pesan error */
+            font-size: 16px;
         }
 
         button {
-            padding: 10px 20px; /* Memperbesar tombol */
+            padding: 10px 20px;
             background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
-            margin-top: 15px; /* Meningkatkan margin */
+            margin-top: 15px;
             border-radius: 8px;
-            font-size: 16px; /* Memperbesar ukuran font tombol */
+            font-size: 16px;
         }
 
         button:hover {
@@ -110,6 +110,33 @@
         .table-container tr:hover td,
         .summary-container tr:hover td {
             background-color: #f1f1f1;
+        }
+
+        /* Gaya untuk nomor transaksi */
+        .transaction-number {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .transaction-number.blue {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .transaction-number.green {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .transaction-number.red {
+            background-color: #dc3545;
+            color: white;
         }
 
         .summary-container table {
@@ -338,16 +365,27 @@
             const tbody = document.getElementById('transactionBody');
             tbody.innerHTML = '';
 
-            transactions.forEach(t => {
+            transactions.forEach((t, index) => {
                 const isEurUsd = t.asset === 'EURUSD';
                 const entryDisplay = Number.isInteger(t.entry) ? t.entry : t.entry.toFixed(isEurUsd ? 5 : 2);
                 const exitDisplay = t.exit !== null ? 
                     (Number.isInteger(t.exit) ? t.exit : t.exit.toFixed(isEurUsd ? 5 : 2)) : 
                     '-';
                 
+                // Tentukan kelas warna berdasarkan nomor transaksi
+                const transactionNumber = index + 1;
+                let numberClass = '';
+                if (transactionNumber === 1) {
+                    numberClass = 'blue';
+                } else if (transactionNumber >= 2 && transactionNumber <= 10) {
+                    numberClass = 'green';
+                } else if (transactionNumber === 11) {
+                    numberClass = 'red';
+                }
+
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${t.date}</td>
+                    <td><span class="transaction-number ${numberClass}">${transactionNumber}</span> ${t.date}</td>
                     <td>${t.asset}</td>
                     <td>${t.type}</td>
                     <td>${t.amount.toFixed(2)}</td>
