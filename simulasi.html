@@ -4,155 +4,182 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sigma Grok</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Georgia', serif;
+            font-family: 'Open Sans', sans-serif;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background: linear-gradient(135deg, #4a2c6d, #1e90ff);
+            background: linear-gradient(135deg, #1a2a44, #2e5b99);
             min-height: 100vh;
+            color: #333;
         }
 
         h1, h2 {
-            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            color: #ffffff;
+            font-weight: 500;
         }
 
         .form-container h2, 
         .table-container h2, 
         .summary-container h2 {
-            color: #000;
-            font-size: 28px;
+            color: #1a2a44;
+            font-size: 24px;
+            font-weight: 600;
         }
 
         .form-container, .table-container, .summary-container {
             margin: 20px 0;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border: none;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .form-container label {
             display: inline-block;
             width: 150px;
-            margin: 10px 0;
-            color: #333;
-            font-size: 18px;
+            margin: 12px 0;
+            color: #1a2a44;
+            font-size: 16px;
+            font-weight: 600;
         }
 
         .form-container input, .form-container select {
-            margin: 10px 0;
-            padding: 8px;
+            margin: 12px 0;
+            padding: 10px;
             width: 300px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            font-size: 15px;
+            font-family: 'Roboto', sans-serif;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background-color: #f9fafb;
+            transition: border-color 0.2s;
+        }
+
+        .form-container input:focus, .form-container select:focus {
+            border-color: #2e5b99;
+            outline: none;
         }
 
         .error-message {
-            color: red;
-            margin-top: 5px;
+            color: #dc2626;
+            margin-top: 8px;
             display: none;
-            font-size: 16px;
+            font-size: 14px;
+            font-family: 'Open Sans', sans-serif;
         }
 
         button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
+            padding: 12px 24px;
+            background-color: #2e5b99;
             color: white;
             border: none;
             cursor: pointer;
-            margin-top: 15px;
-            border-radius: 8px;
-            font-size: 16px;
+            margin-top: 20px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            transition: background-color 0.2s;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #1a2a44;
         }
 
         #resetButton {
-            background-color: #f44336;
+            background-color: #dc2626;
         }
 
         #resetButton:hover {
-            background-color: #da190b;
+            background-color: #b91c1c;
         }
 
         .table-container table, .summary-container table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
+            margin-top: 15px;
+            font-family: 'Roboto', sans-serif;
         }
 
         .table-container th, .table-container td,
         .summary-container th, .summary-container td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #333;
+            padding: 12px;
+            text-align: right;
+            border-bottom: 1px solid #e5e7eb;
         }
 
         .table-container th, .summary-container th {
-            background-color: #f2f2f2;
-            font-weight: bold;
+            background-color: #f3f4f6;
+            font-weight: 600;
+            color: #1a2a44;
+            text-align: left;
         }
 
         .table-container td, .summary-container td {
-            background-color: #fff;
+            background-color: #ffffff;
+            font-size: 14px;
         }
 
         .table-container tr:nth-child(even) td,
         .summary-container tr:nth-child(even) td {
-            background-color: #f9f9f9;
+            background-color: #f9fafb;
         }
 
         .table-container tr:hover td,
         .summary-container tr:hover td {
-            background-color: #f1f1f1;
+            background-color: #f1f5f9;
         }
 
         /* Gaya untuk nomor transaksi */
         .transaction-number {
             display: inline-block;
-            width: 24px;
-            height: 24px;
-            line-height: 24px;
-            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            border-radius: 4px;
             text-align: center;
-            font-family: 'Arial', sans-serif; /* Mengubah font menjadi sans-serif */
-            font-size: 14px; /* Mengurangi ukuran font */
-            font-weight: bold;
-            margin-right: 5px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 8px;
+            background-color: #e5e7eb;
+            color: #1a2a44;
         }
 
         .transaction-number.blue {
-            background-color: #007bff;
+            background-color: #2e5b99;
             color: white;
         }
 
         .transaction-number.green {
-            background-color: #28a745;
+            background-color: #16a34a;
             color: white;
         }
 
         .transaction-number.red {
-            background-color: #dc3545;
+            background-color: #dc2626;
             color: white;
         }
 
         .summary-container table {
-            max-width: 400px;
+            max-width: 450px;
         }
 
         caption {
             padding: 10px;
-            font-weight: bold;
-            color: #333;
+            font-weight: 600;
+            color: #1a2a44;
+            font-family: 'Roboto', sans-serif;
+            text-align: left;
         }
 
         caption a {
-            color: #0066cc;
+            color: #2e5b99;
             text-decoration: none;
         }
 
@@ -161,45 +188,47 @@
         }
 
         .quote-container {
-            background-color: rgba(240, 200, 100, 0.9);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
             text-align: center;
             position: relative;
-            margin: 20px auto;
+            margin: 30px auto;
         }
 
         .quote-container::before {
             content: '“';
-            font-size: 50px;
-            color: #4a2c6d;
+            font-size: 40px;
+            color: #2e5b99;
             position: absolute;
-            top: -20px;
+            top: -15px;
             left: 20px;
         }
 
         .quote-container::after {
             content: '”';
-            font-size: 50px;
-            color: #4a2c6d;
+            font-size: 40px;
+            color: #2e5b99;
             position: absolute;
-            bottom: -20px;
+            bottom: -15px;
             right: 20px;
         }
 
         .quote {
-            font-size: 24px;
-            color: #333;
-            margin: 20px 0;
-            line-height: 1.4;
+            font-size: 18px;
+            color: #1a2a44;
+            margin: 15px 0;
+            line-height: 1.5;
+            font-family: 'Open Sans', sans-serif;
         }
 
         .author {
-            font-size: 18px;
-            color: #666;
+            font-size: 14px;
+            color: #4b5563;
             font-style: italic;
+            font-family: 'Open Sans', sans-serif;
         }
 
         @media (max-width: 600px) {
