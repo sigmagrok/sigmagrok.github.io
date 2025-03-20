@@ -8,11 +8,13 @@
         body {
             font-family: 'Georgia', serif; /* Font elegan untuk kesan bijaksana */
             display: flex;
+            flex-direction: column; /* Mengubah ke column agar container tidak bertumpuk */
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
             background: linear-gradient(135deg, #4a2c6d, #1e90ff); /* Latar gradien */
+            padding: 20px; /* Memberi jarak agar tidak terlalu menempel ke tepi */
         }
         .quote-container {
             background-color: rgba(240, 200, 100, 0.9); /* Emas Lembut */
@@ -22,6 +24,7 @@
             max-width: 500px;
             text-align: center;
             position: relative;
+            margin: 20px 0; /* Jarak antar container */
         }
         .quote-container::before {
             content: '“'; /* Tanda kutip besar di awal */
@@ -58,8 +61,7 @@
         <p class="author">— Jalaluddin Rumi</p>
     </div>
     <div class="quote-container">
-        <p class="quote">"Wahai hatiku, jangan pernah berpikir dirimu lebih baik dari yang lain. Dengarkan kesedihan mereka dengan kasih sayang.
-Jika ingin damai, jangan menyimpan pikiran buruk, jangan bergosip dan jangan mengajarkan apa yang tidak kamu ketahui."</p>
+        <p class="quote">Wahai hatiku, jangan pernah berpikir dirimu lebih baik dari yang lain. Dengarkan kesedihan mereka dengan kasih sayang. Jika ingin damai, jangan menyimpan pikiran buruk, jangan bergosip dan jangan mengajarkan apa yang tidak kamu ketahui.</p>
         <p class="author">— Jalaluddin Rumi</p>
     </div>
 </body>
