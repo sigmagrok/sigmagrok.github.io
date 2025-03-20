@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grid Responsif - Galeri Foto</title>
+    <title>Grid Responsif - Gambar dan Video</title>
     <style>
         * {
             margin: 0;
@@ -26,18 +26,19 @@
         }
 
         .gallery-item {
-            position: relative; /* Untuk teks di atas gambar jika diperlukan */
+            position: relative;
             height: 200px; /* Tinggi tetap untuk konsistensi */
-            overflow: hidden; /* Menghindari gambar meluber */
+            overflow: hidden;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
-        .gallery-item img {
-            width: 100%; /* Gambar memenuhi lebar container */
-            height: 100%; /* Gambar memenuhi tinggi container */
-            object-fit: cover; /* Memastikan gambar terpotong rapi */
-            display: block; /* Menghilangkan whitespace bawah */
+        .gallery-item img,
+        .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Memotong rapi untuk gambar dan video */
+            display: block;
         }
 
         .gallery-item span {
@@ -51,6 +52,11 @@
             font-size: 14px;
         }
 
+        /* Kontrol video */
+        .gallery-item video {
+            outline: none; /* Hapus outline default */
+        }
+
         /* Media query untuk layar sangat kecil */
         @media (max-width: 400px) {
             .gallery {
@@ -62,28 +68,34 @@
 <body>
     <div class="gallery">
         <div class="gallery-item">
-            <img src="https://primal.net/e/nevent1qqsgdc57xudl9hn3hzjlv4qdjemhkktp0tmzq0fpw8w3h32xtaprf6qkkg98n" alt="Foto 1">
-            <span>Foto 1</span>
+            <img src="https://primal.b-cdn.net/media-cache?s=o&a=1&u=https%3A%2F%2Fm.primal.net%2FPWxY.jpg" alt="Gambar 1">
+            <span>Gambar 1</span>
         </div>
         <div class="gallery-item">
-            <img src="https://primal.b-cdn.net/media-cache?s=o&a=1&u=https%3A%2F%2Fm.primal.net%2FPWxY.jpg" alt="Foto 2">
-            <span>Foto 2</span>
+            <video controls>
+                <source src="https://primal.b-cdn.net/media-upload?u=https%3A%2F%2Fmedia.primal.net%2Fuploads%2Fa%2Fc3%2F74%2Fac3747621491d5f42f15143843f4635341597e69476a137863db9d4bd3995d00.mp4" type="video/mp4">
+                Browser Anda tidak mendukung video.
+            </video>
+            <span>Video 1</span>
         </div>
         <div class="gallery-item">
-            <img src="https://via.placeholder.com/300x200" alt="Foto 3">
-            <span>Foto 3</span>
+            <img src="https://via.placeholder.com/300x200" alt="Gambar 2">
+            <span>Gambar 2</span>
         </div>
         <div class="gallery-item">
-            <img src="https://via.placeholder.com/300x200" alt="Foto 4">
-            <span>Foto 4</span>
+            <video controls>
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                Browser Anda tidak mendukung video.
+            </video>
+            <span>Video 2</span>
         </div>
         <div class="gallery-item">
-            <img src="https://via.placeholder.com/300x200" alt="Foto 5">
-            <span>Foto 5</span>
+            <img src="https://via.placeholder.com/300x200" alt="Gambar 3">
+            <span>Gambar 3</span>
         </div>
         <div class="gallery-item">
-            <img src="https://via.placeholder.com/300x200" alt="Foto 6">
-            <span>Foto 6</span>
+            <img src="https://via.placeholder.com/300x200" alt="Gambar 4">
+            <span>Gambar 4</span>
         </div>
     </div>
 </body>
