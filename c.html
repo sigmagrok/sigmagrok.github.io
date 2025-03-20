@@ -26,16 +26,29 @@
         }
 
         .gallery-item {
-            background-color: #4a90e2;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 18px;
+            position: relative; /* Untuk teks di atas gambar jika diperlukan */
+            height: 200px; /* Tinggi tetap untuk konsistensi */
+            overflow: hidden; /* Menghindari gambar meluber */
             border-radius: 8px;
-            height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item img {
+            width: 100%; /* Gambar memenuhi lebar container */
+            height: 100%; /* Gambar memenuhi tinggi container */
+            object-fit: cover; /* Memastikan gambar terpotong rapi */
+            display: block; /* Menghilangkan whitespace bawah */
+        }
+
+        .gallery-item span {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 14px;
         }
 
         /* Media query untuk layar sangat kecil */
@@ -48,12 +61,30 @@
 </head>
 <body>
     <div class="gallery">
-        <div class="gallery-item">Foto 1</div>
-        <div class="gallery-item">Foto 2</div>
-        <div class="gallery-item">Foto 3</div>
-        <div class="gallery-item">Foto 4</div>
-        <div class="gallery-item">Foto 5</div>
-        <div class="gallery-item">Foto 6</div>
+        <div class="gallery-item">
+            <img src="https://via.placeholder.com/300x200" alt="Foto 1">
+            <span>Foto 1</span>
+        </div>
+        <div class="gallery-item">
+            <img src="https://via.placeholder.com/300x200" alt="Foto 2">
+            <span>Foto 2</span>
+        </div>
+        <div class="gallery-item">
+            <img src="https://via.placeholder.com/300x200" alt="Foto 3">
+            <span>Foto 3</span>
+        </div>
+        <div class="gallery-item">
+            <img src="https://via.placeholder.com/300x200" alt="Foto 4">
+            <span>Foto 4</span>
+        </div>
+        <div class="gallery-item">
+            <img src="https://via.placeholder.com/300x200" alt="Foto 5">
+            <span>Foto 5</span>
+        </div>
+        <div class="gallery-item">
+            <img src="https://via.placeholder.com/300x200" alt="Foto 6">
+            <span>Foto 6</span>
+        </div>
     </div>
 </body>
 </html>
