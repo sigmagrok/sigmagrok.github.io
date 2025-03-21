@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penjelasan Kolom Candlestick</title>
+    <title>Data Candlestick Bitcoin</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -21,8 +21,9 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
+            max-width: 1000px;
             width: 100%;
+            overflow-x: auto; /* Scroll horizontal jika tabel terlalu lebar */
         }
 
         h1 {
@@ -34,18 +35,21 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
         }
 
         th, td {
             padding: 12px;
-            text-align: left;
+            text-align: right; /* Rata kanan untuk angka */
             border-bottom: 1px solid #ddd;
         }
 
         th {
             background-color: #4a90e2;
             color: white;
+        }
+
+        td:first-child {
+            text-align: left; /* Timestamp rata kiri */
         }
 
         tr:nth-child(even) {
@@ -56,87 +60,97 @@
             background-color: #f1f1f1;
         }
 
-        .toggle-btn {
-            display: block;
-            margin: 0 auto;
-            padding: 10px 20px;
-            background-color: #50c878;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+        .bullish {
+            color: #50c878; /* Hijau untuk Bullish */
+            font-weight: bold;
         }
 
-        .toggle-btn:hover {
-            background-color: #45b369;
+        .bearish {
+            color: #e74c3c; /* Merah untuk Bearish */
+            font-weight: bold;
         }
 
-        .hidden {
-            display: none;
+        .neutral {
+            color: #f1c40f; /* Kuning untuk Neutral */
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Penjelasan Kolom Candlestick</h1>
-        <table id="explanationTable">
+        <h1>Data Candlestick Bitcoin (BTC/USDT)</h1>
+        <table id="candlestickTable">
             <thead>
                 <tr>
-                    <th>Kolom</th>
-                    <th>Penjelasan</th>
+                    <th>Timestamp</th>
+                    <th>Open</th>
+                    <th>High</th>
+                    <th>Low</th>
+                    <th>Close</th>
+                    <th>Upper Shadow</th>
+                    <th>Lower Shadow</th>
+                    <th>Trend</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Timestamp</td>
-                    <td>Waktu mulai periode (misalnya per jam).</td>
-                </tr>
-                <tr>
-                    <td>Open</td>
-                    <td>Harga pembukaan.</td>
-                </tr>
-                <tr>
-                    <td>High</td>
-                    <td>Harga tertinggi.</td>
-                </tr>
-                <tr>
-                    <td>Low</td>
-                    <td>Harga terendah.</td>
-                </tr>
-                <tr>
-                    <td>Close</td>
-                    <td>Harga penutupan.</td>
-                </tr>
-                <tr>
-                    <td>Upper Shadow</td>
-                    <td>Panjang bayangan atas candlestick.</td>
-                </tr>
-                <tr>
-                    <td>Lower Shadow</td>
-                    <td>Panjang bayangan bawah candlestick.</td>
-                </tr>
-                <tr>
-                    <td>Trend</td>
-                    <td>Indikator Bullish (naik), Bearish (turun), atau Neutral (sama).</td>
-                </tr>
+            <tbody id="tableBody">
+                <!-- Data akan dimasukkan via JavaScript -->
             </tbody>
         </table>
-        <button class="toggle-btn" onclick="toggleTable()">Sembunyikan Tabel</button>
     </div>
 
     <script>
-        function toggleTable() {
-            const table = document.getElementById("explanationTable");
-            const button = document.querySelector(".toggle-btn");
-            if (table.classList.contains("hidden")) {
-                table.classList.remove("hidden");
-                button.textContent = "Sembunyikan Tabel";
-            } else {
-                table.classList.add("hidden");
-                button.textContent = "Tampilkan Tabel";
-            }
+        // Contoh data statis (bisa diganti dengan data dari API)
+        const data = [
+            { timestamp: "2025-03-21 00:00:00", open: 62000.50, high: 62500.00, low: 61800.00, close: 62250.75, upper: 249.25, lower: 200.50, trend: "Bullish" },
+            { timestamp: "2025-03-21 01:00:00", open: 62250.75, high: 62700.00, low: 62000.00, close: 62100.25, upper: 449.25, lower: 250.75, trend: "Bearish" },
+            { timestamp: "2025-03-21 02:00:00", open: 62100.25, high: 62350.00, low: 61950.00, close: 62300.50, upper: 49.50, lower: 150.25, trend: "Bullish" },
+            { timestamp: "2025-03-21 03:00:00", open: 62300.50, high: 62400.00, low: 62150.00, close: 62200.75, upper: 99.50, lower: 50.50, trend: "Bearish" },
+            { timestamp: "2025-03-21 04:00:00", open: 62200.75, high: 62650.00, low: 62000.00, close: 62575.25, upper: 74.75, lower: 200.75, trend: "Bullish" }
+        ];
+
+        // Fungsi untuk mengisi tabel
+        function populateTable(data) {
+            const tbody = document.getElementById("tableBody");
+            tbody.innerHTML = ""; // Kosongkan tabel sebelumnya
+
+            data.forEach(row => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td>${row.timestamp}</td>
+                    <td>${row.open.toFixed(2)}</td>
+                    <td>${row.high.toFixed(2)}</td>
+                    <td>${row.low.toFixed(2)}</td>
+                    <td>${row.close.toFixed(2)}</td>
+                    <td>${row.upper.toFixed(2)}</td>
+                    <td>${row.lower.toFixed(2)}</td>
+                    <td class="${row.trend.toLowerCase()}">${row.trend}</td>
+                `;
+                tbody.appendChild(tr);
+            });
         }
+
+        // Panggil fungsi untuk mengisi tabel dengan data statis
+        populateTable(data);
+
+        // (Opsional) Ambil data dari Binance API
+        /*
+        fetch("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1h&limit=5")
+            .then(response => response.json())
+            .then(data => {
+                const formattedData = data.map(item => ({
+                    timestamp: new Date(item[0]).toLocaleString(),
+                    open: parseFloat(item[1]),
+                    high: parseFloat(item[2]),
+                    low: parseFloat(item[3]),
+                    close: parseFloat(item[4]),
+                    upper: parseFloat(item[2]) - Math.max(parseFloat(item[1]), parseFloat(item[4])),
+                    lower: Math.min(parseFloat(item[1]), parseFloat(item[4])) - parseFloat(item[3]),
+                    trend: item[4] > item[1] ? "Bullish" : item[4] < item[1] ? "Bearish" : "Neutral"
+                }));
+                populateTable(formattedData);
+            })
+            .catch(error => console.error("Error fetching data:", error));
+        */
     </script>
 </body>
 </html>
