@@ -12,11 +12,13 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
-        canvas {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #1a2526;
+        h1 {
+            margin-bottom: 20px;
         }
         .button-group {
             text-align: center;
@@ -37,6 +39,17 @@
         .button-group button.active {
             background-color: #4a5b5c;
         }
+        .chart-container {
+            width: 90vw; /* Lebar 90% dari viewport */
+            max-width: 1200px; /* Maksimum lebar 1200px */
+            height: 600px; /* Tinggi grafik diperbesar */
+            margin: 0 auto;
+        }
+        canvas {
+            width: 100% !important;
+            height: 100% !important;
+            background-color: #1a2526;
+        }
     </style>
 </head>
 <body>
@@ -46,14 +59,16 @@
         <button onclick="updateChart('entity')">Entity</button>
         <button onclick="updateChart('network')">Network</button>
     </div>
-    <canvas id="myChart"></canvas>
+    <div class="chart-container">
+        <canvas id="myChart"></canvas>
+    </div>
 
     <script>
         const years = [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
         const dataSets = {
-            date: [0, 0, 0, 0, 10, 50, 100, 150, 150], // Data asli
-            entity: [5, 10, 15, 20, 30, 40, 60, 80, 100], // Data dummy untuk Entity
-            network: [10, 20, 30, 40, 50, 70, 90, 110, 130] // Data dummy untuk Network
+            date: [0, 0, 0, 0, 10, 50, 100, 150, 150],
+            entity: [5, 10, 15, 20, 30, 40, 60, 80, 100],
+            network: [10, 20, 30, 40, 50, 70, 90, 110, 130]
         };
 
         const ctx = document.getElementById('myChart').getContext('2d');
@@ -73,15 +88,23 @@
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false, // Memungkinkan grafik mengikuti ukuran container
                 scales: {
                     x: {
                         title: {
                             display: true,
                             text: 'Year',
-                            color: 'white'
+                            color: 'white',
+                            font: {
+                                size: 16
+                            }
                         },
                         ticks: {
-                            color: 'white'
+                            color: 'white',
+                            font: {
+                                size: 14
+                            }
                         },
                         grid: {
                             color: 'rgba(255, 255, 255, 0.1)'
@@ -91,10 +114,16 @@
                         title: {
                             display: true,
                             text: 'Value',
-                            color: 'white'
+                            color: 'white',
+                            font: {
+                                size: 16
+                            }
                         },
                         ticks: {
-                            color: 'white'
+                            color: 'white',
+                            font: {
+                                size: 14
+                            }
                         },
                         grid: {
                             color: 'rgba(255, 255, 255, 0.1)'
@@ -112,11 +141,9 @@
         });
 
         function updateChart(group) {
-            // Update data grafik berdasarkan grup
             chart.data.datasets[0].data = dataSets[group];
             chart.update();
 
-            // Update tombol aktif
             document.querySelectorAll('.button-group button').forEach(btn => {
                 btn.classList.remove('active');
             });
