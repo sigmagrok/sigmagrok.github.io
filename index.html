@@ -29,8 +29,16 @@
             width: 100%;
             padding: 20px 40px;
             display: flex;
+            justify-content: center; /* Pusatkan seluruh konten navbar */
+            align-items: center;
+        }
+
+        .nav-container {
+            display: flex;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
+            max-width: 1200px; /* Batasi lebar maksimum agar sesuai dengan desain */
         }
 
         nav ul {
@@ -125,18 +133,40 @@
             content: '→';
             font-size: 18px;
         }
+
+        /* Responsivitas */
+        @media (max-width: 768px) {
+            .content h1 {
+                font-size: 40px;
+            }
+            .content p {
+                font-size: 16px;
+            }
+            .buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            nav ul {
+                gap: 10px;
+            }
+            nav ul li a {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Navbar -->
     <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Methodology</a></li>
-            <li><a href="#">Contribute</a></li>
-        </ul>
-        <div class="theme-icon">☀️</div>
+        <div class="nav-container">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Methodology</a></li>
+                <li><a href="#">Contribute</a></li>
+            </ul>
+            <div class="theme-icon">☀️</div>
+        </div>
     </nav>
 
     <!-- Konten Utama -->
