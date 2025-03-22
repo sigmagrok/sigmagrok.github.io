@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trend Over Years</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #1a2526;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        canvas {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #1a2526;
+        }
+        .button-group {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .button-group button {
+            background-color: #2a3b3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button-group button:hover {
+            background-color: #3a4b4c;
+        }
+        .button-group button.active {
+            background-color: #4a5b5c;
+        }
+    </style>
+</head>
+<body>
+    <h1>Trend Over Years</h1>
+    <div class="button-group">
+        <button onclick="updateChart('date')" class="active">Date</button>
+        <button onclick="updateChart('entity')">Entity</button>
+        <button onclick="updateChart('network')">Network</button>
+    </div>
+    <canvas id="myChart"></canvas>
+
+    <script>
+        const years = [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025];
+        const dataSets = {
+            date: [0, 0, 0, 0, 10, 50, 100, 150, 150], // Data asli
+            entity: [5, 10, 15, 20, 30, 40, 60, 80, 100], // Data dummy untuk Entity
+            network: [10, 20, 30, 40, 50, 70, 90, 110, 130] // Data dummy untuk Network
+        };
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        let chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: years,
+                datasets: [{
+                    label: 'Value',
+                    data: dataSets.date,
+                    borderColor: 'white',
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    fill: false,
+                    tension: 0.1,
+                    pointRadius: 5,
+                    pointBackgroundColor: 'white'
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Year',
+                            color: 'white'
+                        },
+                        ticks: {
+                            color: 'white'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Value',
+                            color: 'white'
+                        },
+                        ticks: {
+                            color: 'white'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        beginAtZero: true,
+                        max: 150
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        function updateChart(group) {
+            // Update data grafik berdasarkan grup
+            chart.data.datasets[0].data = dataSets[group];
+            chart.update();
+
+            // Update tombol aktif
+            document.querySelectorAll('.button-group button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`button[onclick="updateChart('${group}')"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>
